@@ -1,0 +1,79 @@
+<html lang="en" class="pixel-ratio-1">
+<head>
+<meta charset="UTF-8">
+<title>I悦租</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="//res.wx.qq.com/open/libs/weui/1.0.2/weui.min.css">
+<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="./js/jquery.cookie.js"></script>
+<script type="text/javascript" src="//g.alicdn.com/sj/lib/zepto/zepto.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/publish.js"></script>
+
+</head>
+
+<body>
+
+	<div class="page">
+
+		<header class="bar bar-nav">
+			<h1 class="title">发布信息</h1>
+		</header>
+
+		<nav id="page-nav" class="bar bar-tab">
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+		</nav>
+
+		<nav class="bar bar-nav bar-standard">
+			<h1 class="title">请选择要发布的信息：</h1>
+		</nav>
+
+		<div class="content">
+			<div class="list-block inset">
+				<ul>
+					<li><a id="create-house" class="item-link list-button">我要招租</a></li>
+					<li><a id="create-rent" class="item-link list-button">我要租房</a></li>
+				</ul>
+			</div>
+
+			<div id="dialog" style="display: none;">
+				<div class="weui-mask"></div>
+				<div class="weui-dialog">
+					<div class="weui-dialog__hd">
+						<strong class="weui-dialog__title">确认登录</strong>
+					</div>
+					<div id="dialog-title" class="weui-dialog__bd"></div>
+					<div class="weui-dialog__ft">
+						<a href="javascript:hideDialog();" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+						<a href="javascript:toLogin();" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+</body>
+</html>

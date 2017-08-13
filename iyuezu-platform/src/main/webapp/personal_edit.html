@@ -1,0 +1,147 @@
+<html lang="en" class="pixel-ratio-1">
+<head>
+<meta charset="UTF-8">
+<title>I悦租</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="//res.wx.qq.com/open/libs/weui/1.0.2/weui.min.css">
+<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<script type="text/javascript" src="//g.alicdn.com/sj/lib/zepto/zepto.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="./js/jquery.cookie.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/personal_edit.js"></script>
+
+</head>
+
+<body>
+
+	<div class="page">
+	
+		<header class="bar bar-nav">
+			<h1 class="title">编辑我的信息</h1>
+		</header>
+
+		<nav id="page-nav" class="bar bar-tab">
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+		</nav>
+
+		<div class="content">
+
+			<div class="weui-cells__title">个人资料</div>
+        	<div class="weui-cells weui-cells_form">
+        		<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<label class="weui-label">昵称</label>
+					</div>
+					<div class="weui-cell__bd">
+						<input id="username" class="weui-input" type="text" />
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<label class="weui-label">姓名</label>
+					</div>
+					<div class="weui-cell__bd">
+						<input id="name" class="weui-input" type="text" />
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<label class="weui-label">手机号</label>
+					</div>
+					<div class="weui-cell__bd">
+						<input id="phone" class="weui-input" type="tel" />
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<label class="weui-label">邮箱</label>
+					</div>
+					<div class="weui-cell__bd">
+						<input id="email" class="weui-input" type="text" />
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<label class="weui-label">身份证号</label>
+					</div>
+					<div class="weui-cell__bd">
+						<input id="identity" class="weui-input" type="text" />
+					</div>
+				</div>
+        	
+        	</div>
+        	
+			<div class="content-block-title">更换头像</div>
+			<div class="weui-cells weui-cells_form">
+	            <div class="weui-cell">
+	                <div class="weui-cell__bd">
+	                    <div class="weui-uploader">
+	                        <div class="weui-uploader__bd">
+	                            <ul class="weui-uploader__files">
+	                                <li id="head-image" class="weui-uploader__file"></li>
+	                            </ul>
+	                            <div class="weui-uploader__input-box">
+	                                <input id="picture-upload" class="weui-uploader__input" type="file" accept="image/*" />
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        
+	        <div class="weui-gallery" id="gallery">
+	            <span class="weui-gallery__img" id="gallery-image"></span>
+	        </div>
+			
+			<div class="content-block">
+				<div class="row">
+					<div class="col-50">
+						<a href="javascript:showCancelDialog();" class="button button-big button-fill button-danger">取消</a>
+					</div>
+					<div class="col-50">
+						<a id="submit-personal" href="javascript:void(0);" class="button button-big button-fill button-success">提交</a>
+					</div>
+				</div>
+			</div>
+
+			<div id="cancel-dialog" style="display: none;">
+				<div class="weui-mask"></div>
+				<div class="weui-dialog">
+					<div class="weui-dialog__hd">
+						<strong class="weui-dialog__title">警告</strong>
+					</div>
+					<div class="weui-dialog__bd">确定放弃所有修改并退出吗？</div>
+					<div class="weui-dialog__ft">
+						<a href="javascript:hideCancelDialog();" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+						<a href="javascript:window.history.go(-1);" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+</body>
+</html>

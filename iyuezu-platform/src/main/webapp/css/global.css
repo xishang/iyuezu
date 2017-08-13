@@ -1,0 +1,245 @@
+body {
+    font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+}
+
+.page_title {
+	text-align: center;
+	font-size: 34px;
+	color: #3cc51f;
+	font-weight: 400;
+	margin: 0 15%;
+}
+
+.hd {
+	padding: 2em 0
+}
+
+.cell .page_title {
+	color: #225fba
+}
+
+.bottom-link {
+	text-align: center;
+	text-decoration: underline;
+	color: #0894ec;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+.reddot-border {
+    position: relative;
+    display: inline-block;
+    line-height: 22px;
+    padding: 0 6px;
+}
+
+.reddot-border:before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: #fff;
+    border-radius: 5px;
+    right: -4px;
+    top: -4px;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    padding: 1px;
+}
+
+.reddot-border:after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: #f74c31;
+    border-radius: 5px;
+    right: -3px;
+    top: -3px;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+}
+
+/* 在文本右上角显示提示数字 */
+.text-badge {
+	position: absolute;
+    top: 5px;
+    display: inline-block;
+    margin-left: 3px;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    color: white;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    background-color: red;
+    border-radius: 10px;
+}
+
+/* 在sui工具栏tab上显示小红点 */
+.reddot-badge {
+    position: absolute;
+    top: .2rem;
+    left: 54%;
+    z-index: 100;
+    height: .4rem;
+    min-width: .4rem;
+    padding: 0 .2rem;
+    font-size: .6rem;
+    line-height: .8rem;
+    color: #fff;
+    vertical-align: top;
+    background: red;
+    border-radius: .5rem;
+    margin-left: .1rem;
+}
+
+/* 在weui的grid上显示小红点 */
+.grid-reddot-badge {
+    position: absolute;
+	top: .5rem;
+    left: 56%;
+    z-index: 100;
+    height: .4rem;
+    min-width: .4rem;
+    padding: 0 .2rem;
+    font-size: .6rem;
+    line-height: .8rem;
+    color: #fff;
+    vertical-align: top;
+    background: red;
+    border-radius: .5rem;
+    margin-left: .1rem;
+}
+
+.grid-text-badge {
+    position: absolute;
+    top: .5rem;
+    left: 56%;
+    z-index: 100;
+    height: .8rem;
+    min-width: .8rem;
+    padding: 0 .2rem;
+    font-size: .6rem;
+    line-height: .8rem;
+    color: #fff;
+    vertical-align: top;
+    background: red;
+    border-radius: .5rem;
+    margin-left: .1rem;
+}
+
+.list-badge {
+	position: absolute;
+	right:5%;
+	top:40%;
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    color: white;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    background-color: red;
+    border-radius: 10px;
+}
+
+/* sui带图片的卡片 */
+.my-facebook-card .card-header {
+    display: block;
+    padding: .5rem
+}
+
+.my-facebook-card .facebook-avatar {
+    float: left
+}
+
+.my-facebook-card .facebook-name {
+    margin-left: 2.2rem;
+    font-size: .7rem;
+    font-weight: 500
+}
+
+.my-facebook-card .facebook-date {
+    margin-left: 2.2rem;
+    font-size: .65rem;
+    color: #5f646e
+}
+
+/* 显示向下的箭头 */
+.arrow-down {
+	position: absolute;
+	top: 50%;
+	margin-top: -2px;
+	margin-left: 2px;
+	width: 0;
+	height: 0;
+	border-top: 6px solid;
+	border-right: 5px solid transparent;
+	border-left: 5px solid transparent;
+	color: #a6a6a6;
+	content: "";
+	pointer-events: none;
+}
+
+.useless {
+	color: grey;
+}
+
+/* 登陆和注册界面css */
+.page_title {
+    text-align: center;
+    font-size: 34px;
+    color: #3cc51f;
+    font-weight: 400;
+    margin: 0 15%
+}
+
+.hd {
+    padding: 2em 0
+}
+
+.cell .page_title {
+    color: #225fba
+}
+
+.back-container {
+	width:100%;
+	padding:50px 0 50px 0;
+	background-size:cover;
+	background-repeat:no-repeat;
+	background-image:url(../images/personal-back.jpg);
+}
+
+.img-circle {
+	width: 80px;
+	height: 80px;
+	margin-bottom:20px;
+	border-radius: 50%;
+	vertical-align: middle;
+}
+
+.weui-search-confirm-btn {
+    display: none;
+    margin-left: 10px;
+    line-height: 28px;
+    color: black;
+    white-space: nowrap;
+}
+
+.weui_cells_tips {
+    margin-top: .3em;
+    color: #888;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 14px
+}
+

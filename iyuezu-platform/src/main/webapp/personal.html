@@ -1,0 +1,186 @@
+<html lang="en" class="pixel-ratio-1">
+<head>
+<meta charset="UTF-8">
+<title>I悦租</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="./css/global.css">
+<link rel="stylesheet" href="//res.wx.qq.com/open/libs/weui/1.0.2/weui.min.css">
+<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<script type="text/javascript" src="//g.alicdn.com/sj/lib/zepto/zepto.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="./js/jquery.cookie.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/personal.js"></script>
+
+</head>
+
+<body>
+
+	<div class="page">
+
+		<header class="bar bar-nav">
+			<h1 class="title">我的信息</h1>
+		</header>
+
+		<nav id="page-nav" class="bar bar-tab">
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+		</nav>
+
+		<div class="content">
+			
+			<div class="back-container" style="text-align:center;margin:auto;">
+				<div>
+					<img id="personal-head" class="img-circle" src="./images/unknown.png">
+				</div>
+					
+				<strong id="personal-name" style="display:none;"></strong>
+				
+				<div id="login-module" class="row" style="width:60%;text-align:center;margin:0 auto;display:none;">
+					<div class="col-50">
+						<a href="login.html" class="button button-dark">登陆</a>
+					</div>
+					<div class="col-50">
+						<a href="register.html" class="button button-dark">注册</a>
+					</div>
+				</div>
+			</div>
+
+			<div id="function-module" class="weui-grids" style="display:none;">
+				<a id="house-reservation" href="house_reservation_list_underway.html" class="weui-grid">
+					<div class="weui-grid__icon">
+						<img src="./images/icon_hr.png" alt="">
+					</div>
+					<p class="weui-grid__label">房源预约</p>
+					<!-- <span class="grid-reddot-badge"></span> -->
+				</a>
+				<a id="rent-reservation" href="rent_reservation_list_underway.html" class="weui-grid">
+					<div class="weui-grid__icon">
+						<img src="./images/icon_rr.png" alt="">
+					</div>
+					<p class="weui-grid__label">求租回应</p>
+				</a>
+				<a id="comment" href="my_comments.html" class="weui-grid">
+					<div class="weui-grid__icon">
+						<img src="./images/icon_c.png" alt="">
+					</div>
+					<p class="weui-grid__label">评论管理</p>
+				</a>
+				<a id="change-password" href="javascript:void(0);" class="weui-grid">
+					<div class="weui-grid__icon">
+						<img src="./images/icon_cp2.png" alt="">
+					</div>
+					<p class="weui-grid__label">修改密码</p>
+				</a>
+				<a href="javascript:showLogoutDialog();" class="weui-grid">
+					<div class="weui-grid__icon">
+						<img src="./images/icon_lo.png" alt="">
+					</div>
+					<p class="weui-grid__label">退出登陆</p>
+				</a>
+			</div>
+			
+			<div id="search-bar" class="weui-search-bar" style="height:44px;display:none;">
+				<form class="weui-search-bar__form">
+					<div class="weui-search-bar__box">
+						<i class="weui-icon-search"></i>
+						<input id="search-input" type="search" class="weui-search-bar__input" placeholder="输入手机号以查询房源预约信息">
+						<a id="search-clear" href="javascript:" class="weui-icon-clear"></a>
+					</div>
+					<label id="search-text" class="weui-search-bar__label" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+						<i class="weui-icon-search"></i>
+						<span>搜索房源预约信息</span>
+					</label>
+				</form>
+				<a id="search-cancel" href="javascript:" class="weui-search-bar__cancel-btn">搜索</a>
+			</div>
+			
+			<br>
+
+			<div class="weui-footer">
+				<p class="weui-footer__links">
+					<a href="javascript:void(0);" class="weui-footer__link">I悦租</a>
+				</p>
+				<p class="weui-footer__text">Copyright © www.iyuezu.cn</p>
+			</div>
+			
+			<div id="password-dialog" style="display: none;width:80%;">
+	            <div class="weui-mask"></div>
+	            <div class="weui-dialog">
+	                <div class="weui-dialog__hd"><strong class="weui-dialog__title">修改密码</strong></div>
+	                <div class="weui-dialog__bd">
+	
+						<div class="weui-cells weui-cells_form">
+							<div class="weui-cell">
+								<div class="weui-cell__hd">
+									<label class="weui-label">原密码</label>
+								</div>
+								<div class="weui-cell__bd">
+									<input id="password" class="weui-input need-check" type="password">
+								</div>
+							</div>
+							<div class="weui-cell">
+								<div class="weui-cell__hd">
+									<label class="weui-label">新密码</label>
+								</div>
+								<div class="weui-cell__bd">
+									<input id="new-password" class="weui-input need-check" type="password">
+								</div>
+							</div>
+							<div class="weui-cell">
+								<div class="weui-cell__hd">
+									<label class="weui-label">确认密码</label>
+								</div>
+								<div class="weui-cell__bd">
+									<input id="repeat-password" class="weui-input need-check" type="password">
+								</div>
+							</div>
+						</div>
+						
+	                </div>
+	                <div class="weui-dialog__ft">
+	                    <a href="javascript:hidePasswordDialog();" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+	                    <a id="submit-password" href="javascript:void(0);" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+	                </div>
+	            </div>
+	        </div>
+
+			<div id="logout-dialog" style="display: none;">
+				<div class="weui-mask"></div>
+				<div class="weui-dialog">
+					<div class="weui-dialog__hd">
+						<strong class="weui-dialog__title">确认</strong>
+					</div>
+					<div class="weui-dialog__bd">确定退出登录吗？</div>
+					<div class="weui-dialog__ft">
+						<a href="javascript:hideLogoutDialog();" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+						<a href="javascript:logout();" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+</body>
+</html>

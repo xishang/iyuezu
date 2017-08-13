@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iyuezu.mybatis.mapper.HouseCommentMapper">
+	
+	<resultMap id="commentResult" type="HouseComment">
+		<result property="uuid" column="c_uuid" />
+		<result property="replyUuid" column="c_reply_uuid" />
+		<result property="level" column="c_level" />
+		<result property="content" column="c_content" />
+		<result property="thumb" column="c_thumb" />
+		<result property="replyCount" column="c_reply_count" />
+		<result property="compScore" column="c_comp_score" />
+		<result property="authScore" column="c_auth_score" />
+		<result property="satisScore" column="c_satis_score" />
+		<result property="servScore" column="c_serv_score" />
+		<result property="status" column="c_status" />
+		<result property="createTime" column="c_create_time" />
+		<association property="house" javaType="House" resultMap="houseResult" />
+		<association property="user" javaType="User" resultMap="userResult" />
+		<collection property="replys" ofType="HouseComment" javaType="ArrayList" resultMap="replyResult"/>
+	</resultMap>
+	
+	<resultMap id="houseResult" type="House">
+		<result property="uuid" column="h_uuid" />
+		<result property="title" column="h_title" />
+		<result property="community" column="h_community" />
+		<result property="room" column="h_room" />
+		<result property="hall" column="h_hall" />
+		<result property="kitchen" column="h_kitchen" />
+		<result property="defend" column="h_defend" />
+		<result property="size" column="h_size" />
+		<result property="price" column="h_price" />
+		<result property="discount" column="h_discount" />
+		<result property="contactName" column="h_contact_name" />
+		<result property="contactPhone" column="h_contact_phone" />
+		<result property="contactWechat" column="h_contact_wechat" />
+		<result property="reservationCount" column="h_reservation_count" />
+		<result property="commentCount" column="h_comment_count" />
+		<result property="type" column="h_type" />
+		<result property="floor" column="h_floor" />
+		<result property="totalFloor" column="h_total_floor" />
+		<result property="furnitures" column="h_furnitures" />
+		<result property="description" column="h_description" />
+		<result property="detail" column="h_detail" />
+		<result property="pictures" column="h_pictures" />
+		<result property="status" column="h_status" />
+		<result property="freeTime" column="h_free_time" />
+		<result property="createTime" column="h_create_time" />
+		<result property="updateTime" column="h_update_time" />
+		<association property="district" javaType="District" resultMap="districtResult" />
+	</resultMap>
+	
+	<resultMap id="districtResult" type="District">
+		<result property="id" column="d_id" />
+		<result property="code" column="d_code" />
+		<result property="name" column="d_name" />
+		<result property="parent" column="d_parent" />
+		<result property="level" column="d_level" />
+		<result property="status" column="d_status" />
+	</resultMap>
+	
+	<resultMap id="userResult" type="User">
+    	<result property="uuid" column="u_uuid" />
+    	<result property="account" column="u_account" />
+		<result property="username" column="u_username" />
+		<result property="name" column="u_name" />
+		<result property="phone" column="u_phone" />
+		<result property="email" column="u_email" />
+		<result property="identity" column="u_identity" />
+		<result property="head" column="u_head" />
+		<result property="type" column="u_type" />
+		<result property="status" column="u_status" />
+		<result property="createTime" column="u_create_time" />
+	</resultMap>
+	
+	<resultMap id="replyResult" type="HouseComment">
+		<result property="uuid" column="re_uuid" />
+		<result property="replyUuid" column="re_reply_uuid" />
+		<result property="level" column="re_level" />
+		<result property="content" column="re_content" />
+		<result property="thumb" column="re_thumb" />
+		<result property="replyCount" column="re_reply_count" />
+		<result property="compScore" column="re_comp_score" />
+		<result property="authScore" column="re_auth_score" />
+		<result property="satisScore" column="re_satis_score" />
+		<result property="servScore" column="re_serv_score" />
+		<result property="status" column="re_status" />
+		<result property="createTime" column="re_create_time" />
+		<association property="user" javaType="User" resultMap="replyUserResult" />
+	</resultMap>
+	
+	<resultMap id="replyUserResult" type="User">
+    	<result property="uuid" column="reu_uuid" />
+    	<result property="account" column="reu_account" />
+		<result property="username" column="reu_username" />
+		<result property="name" column="reu_name" />
+		<result property="phone" column="reu_phone" />
+		<result property="email" column="reu_email" />
+		<result property="identity" column="reu_identity" />
+		<result property="head" column="reu_head" />
+		<result property="type" column="reu_type" />
+		<result property="status" column="reu_status" />
+		<result property="createTime" column="reu_create_time" />
+	</resultMap>
+	
+	<resultMap id="thumbResult" type="HouseCommentThumb">
+		<result property="uuid" column="t_uuid" />
+		<result property="userIp" column="t_user_ip" />
+		<result property="status" column="t_status" />
+		<result property="createTime" column="t_create_time" />
+		<result property="updateTime" column="t_update_time" />
+		<association property="comment" javaType="HouseComment" resultMap="commentResult" />
+		<association property="user" javaType="User" resultMap="thumbUserResult" />
+	</resultMap>
+	
+	<resultMap id="thumbUserResult" type="User">
+    	<result property="uuid" column="tu_uuid" />
+    	<result property="account" column="tu_account" />
+		<result property="username" column="tu_username" />
+		<result property="name" column="tu_name" />
+		<result property="phone" column="tu_phone" />
+		<result property="email" column="tu_email" />
+		<result property="identity" column="tu_identity" />
+		<result property="head" column="tu_head" />
+		<result property="type" column="tu_type" />
+		<result property="status" column="tu_status" />
+		<result property="createTime" column="tu_create_time" />
+	</resultMap>
+	
+	<select id="selectComments" resultMap="commentResult" parameterType="com.iyuezu.mybatis.params.HouseCommentParams">
+		select
+			c.uuid as c_uuid, c.reply_uuid as c_reply_uuid, c.level as c_level, c.content as c_content, c.thumb as c_thumb, c.reply_count as c_reply_count,
+			c.comp_score as c_comp_score, c.auth_score as c_auth_score, c.satis_score as c_satis_score, c.serv_score as c_serv_score,
+			c.status as c_status, c.create_time as c_create_time,
+			u.uuid as u_uuid, u.account as u_account, u.username as u_username, u.name as u_name, u.phone as u_phone,
+			u.email as u_email, u.identity as u_identity, u.head as u_head, u.type as u_type, u.status as u_status,
+			u.create_time as u_create_time
+		from house_comment as c join houses as h on c.house_uuid = h.uuid left join districts as d on h.district_id = d.id
+			left join users as u on c.user_uuid = u.uuid
+		<where>
+			<if test="uuid != null">and c.uuid = #{uuid}</if>
+			<if test="houseUuid != null">and c.house_uuid = #{houseUuid}</if>
+			<if test="userUuid != null">and c.user_uuid = #{userUuid}</if>
+			<if test="replyUuid != null">and c.reply_uuid = #{replyUuid}</if>
+			<if test="level != null">and c.level = #{level}</if>
+			<if test="minThumb != null">and c.thumb &gt;= #{minThumb}</if>
+			<if test="maxThumb != null">and c.thumb &lt;= #{maxThumb}</if>
+			<if test="minCompScore != null">and c.comp_score &gt;= #{minCompScore}</if>
+			<if test="maxCompScore != null">and c.comp_score &lt;= #{maxCompScore}</if>
+			<if test="status != null">and c.status = #{status}</if>
+			<if test="minCreateTime != null">and c.create_time &gt;= #{minCreateTime}</if>
+			<if test="maxCreateTime != null">and c.create_time &lt;= #{maxCreateTime}</if>
+		</where>
+		<if test="order != null">
+			order by c.${order}
+		</if>
+		<if test="desc != null and desc == 1">
+			desc
+		</if>
+		<if test="offset != null and size != null">
+			limit #{offset}, #{size}
+		</if>
+	</select>
+	
+	<select id="selectCommentsWithReplys" resultMap="commentResult" parameterType="com.iyuezu.mybatis.params.HouseCommentParams">
+		select
+			c.uuid as c_uuid, c.reply_uuid as c_reply_uuid, c.level as c_level, c.content as c_content, c.thumb as c_thumb, c.reply_count as c_reply_count,
+			c.comp_score as c_comp_score, c.auth_score as c_auth_score, c.satis_score as c_satis_score, c.serv_score as c_serv_score,
+			c.status as c_status, c.create_time as c_create_time,
+			u.uuid as u_uuid, u.account as u_account, u.username as u_username, u.name as u_name, u.phone as u_phone,
+			u.email as u_email, u.identity as u_identity, u.head as u_head, u.type as u_type, u.status as u_status,
+			u.create_time as u_create_time,
+			re.uuid as re_uuid, re.reply_uuid as re_reply_uuid, re.level as re_level, re.content as re_content, re.thumb as re_thumb, re.reply_count as re_reply_count,
+			re.comp_score as re_comp_score, re.auth_score as re_auth_score, re.satis_score as re_satis_score, re.serv_score as re_serv_score,
+			re.status as re_status, re.create_time as re_create_time,
+			reu.uuid as reu_uuid, reu.account as reu_account, reu.username as reu_username, reu.name as reu_name, reu.phone as reu_phone,
+			reu.email as reu_email, reu.identity as reu_identity, reu.head as reu_head, reu.type as reu_type, reu.status as reu_status,
+			reu.create_time as reu_create_time
+		from (
+			select * from house_comment as c where c.level = 1
+				<if test="uuid != null">and c.uuid = #{uuid}</if>
+				<if test="houseUuid != null">and c.house_uuid = #{houseUuid}</if>
+				<if test="userUuid != null">and c.user_uuid = #{userUuid}</if>
+				<if test="minThumb != null">and c.thumb &gt;= #{minThumb}</if>
+				<if test="maxThumb != null">and c.thumb &lt;= #{maxThumb}</if>
+				<if test="minCompScore != null">and c.comp_score &gt;= #{minCompScore}</if>
+				<if test="maxCompScore != null">and c.comp_score &lt;= #{maxCompScore}</if>
+				<if test="status != null">and c.status = #{status}</if>
+				<if test="minCreateTime != null">and c.create_time &gt;= #{minCreateTime}</if>
+				<if test="maxCreateTime != null">and c.create_time &lt;= #{maxCreateTime}</if>
+				<if test="order != null">
+					order by c.${order}
+				</if>
+				<if test="desc != null and desc == 1">
+					desc
+				</if>
+				<if test="offset != null and size != null">
+					limit #{offset}, #{size}
+				</if>
+		) as c left join users as u on c.user_uuid = u.uuid left join house_comment as re on c.uuid = re.reply_uuid
+			left join users as reu on re.user_uuid = reu.uuid
+	</select>
+	
+	<select id="selectCommentsWithHouse" resultMap="commentResult" parameterType="com.iyuezu.mybatis.params.HouseCommentParams">
+		select
+			c.uuid as c_uuid, c.reply_uuid as c_reply_uuid, c.level as c_level, c.content as c_content, c.thumb as c_thumb, c.reply_count as c_reply_count,
+			c.comp_score as c_comp_score, c.auth_score as c_auth_score, c.satis_score as c_satis_score, c.serv_score as c_serv_score,
+			c.status as c_status, c.create_time as c_create_time,
+			h.uuid as h_uuid, h.title as h_title, h.community as h_community, h.room as h_room, h.hall as h_hall, h.kitchen as h_kitchen,
+			h.defend as h_defend, h.size as h_size, h.price as h_price, h.discount as h_discount, h.contact_name as h_contact_name,
+			h.contact_phone as h_contact_phone, h.contact_wechat as h_contact_wechat, h.reservation_count as h_reservation_count, h.comment_count as h_comment_count,
+			h.type as h_type, h.floor as h_floor, h.total_floor as h_total_floor, h.furnitures as h_furnitures, h.description as h_description,
+			h.detail as h_detail, h.pictures as h_pictures, h.status as h_status, h.free_time as h_free_time,
+			h.create_time as h_create_time, h.update_time as h_update_time,
+			d.id as d_id, d.code as d_code, d.name as d_name, d.parent as d_parent, d.level as d_level, d.status as d_status,
+			u.uuid as u_uuid, u.account as u_account, u.username as u_username, u.name as u_name, u.phone as u_phone,
+			u.email as u_email, u.identity as u_identity, u.head as u_head, u.type as u_type, u.status as u_status,
+			u.create_time as u_create_time
+		from house_comment as c join houses as h on c.house_uuid = h.uuid left join districts as d on h.district_id = d.id
+			left join users as u on c.user_uuid = u.uuid
+		<where>
+			<if test="uuid != null">and c.uuid = #{uuid}</if>
+			<if test="houseUuid != null">and c.house_uuid = #{houseUuid}</if>
+			<if test="userUuid != null">and c.user_uuid = #{userUuid}</if>
+			<if test="replyUuid != null">and c.reply_uuid = #{replyUuid}</if>
+			<if test="level != null">and c.level = #{level}</if>
+			<if test="minThumb != null">and c.thumb &gt;= #{minThumb}</if>
+			<if test="maxThumb != null">and c.thumb &lt;= #{maxThumb}</if>
+			<if test="minCompScore != null">and c.comp_score &gt;= #{minCompScore}</if>
+			<if test="maxCompScore != null">and c.comp_score &lt;= #{maxCompScore}</if>
+			<if test="status != null">and c.status = #{status}</if>
+			<if test="minCreateTime != null">and c.create_time &gt;= #{minCreateTime}</if>
+			<if test="maxCreateTime != null">and c.create_time &lt;= #{maxCreateTime}</if>
+		</where>
+		<if test="order != null">
+			order by c.${order}
+		</if>
+		<if test="desc != null and desc == 1">
+			desc
+		</if>
+		<if test="offset != null and size != null">
+			limit #{offset}, #{size}
+		</if>
+	</select>
+	
+	<select id="selectCompleteComments" resultMap="commentResult" parameterType="com.iyuezu.mybatis.params.HouseCommentParams">
+		select
+			c.uuid as c_uuid, c.reply_uuid as c_reply_uuid, c.level as c_level, c.content as c_content, c.thumb as c_thumb, c.reply_count as c_reply_count,
+			c.comp_score as c_comp_score, c.auth_score as c_auth_score, c.satis_score as c_satis_score, c.serv_score as c_serv_score,
+			c.status as c_status, c.create_time as c_create_time,
+			h.uuid as h_uuid, h.title as h_title, h.community as h_community, h.room as h_room, h.hall as h_hall, h.kitchen as h_kitchen,
+			h.defend as h_defend, h.size as h_size, h.price as h_price, h.discount as h_discount, h.contact_name as h_contact_name,
+			h.contact_phone as h_contact_phone, h.contact_wechat as h_contact_wechat, h.reservation_count as h_reservation_count, h.comment_count as h_comment_count,
+			h.type as h_type, h.floor as h_floor, h.total_floor as h_total_floor, h.furnitures as h_furnitures, h.description as h_description,
+			h.detail as h_detail, h.pictures as h_pictures, h.status as h_status, h.free_time as h_free_time,
+			h.create_time as h_create_time, h.update_time as h_update_time,
+			d.id as d_id, d.code as d_code, d.name as d_name, d.parent as d_parent, d.level as d_level, d.status as d_status,
+			u.uuid as u_uuid, u.account as u_account, u.username as u_username, u.name as u_name, u.phone as u_phone,
+			u.email as u_email, u.identity as u_identity, u.head as u_head, u.type as u_type, u.status as u_status,
+			u.create_time as u_create_time,
+			re.uuid as re_uuid, re.reply_uuid as re_reply_uuid, re.level as re_level, re.content as re_content, re.thumb as re_thumb, re.reply_count as re_reply_count,
+			re.comp_score as re_comp_score, re.auth_score as re_auth_score, re.satis_score as re_satis_score, re.serv_score as re_serv_score,
+			re.status as re_status, re.create_time as re_create_time,
+			reu.uuid as reu_uuid, reu.account as reu_account, reu.username as reu_username, reu.name as reu_name, reu.phone as reu_phone,
+			reu.email as reu_email, reu.identity as reu_identity, reu.head as reu_head, reu.type as reu_type, reu.status as reu_status,
+			reu.create_time as reu_create_time
+		from (
+			select * from house_comment as c where level = 1
+				<if test="uuid != null">and c.uuid = #{uuid}</if>
+				<if test="houseUuid != null">and c.house_uuid = #{houseUuid}</if>
+				<if test="userUuid != null">and c.user_uuid = #{userUuid}</if>
+				<if test="minThumb != null">and c.thumb &gt;= #{minThumb}</if>
+				<if test="maxThumb != null">and c.thumb &lt;= #{maxThumb}</if>
+				<if test="minCompScore != null">and c.comp_score &gt;= #{minCompScore}</if>
+				<if test="maxCompScore != null">and c.comp_score &lt;= #{maxCompScore}</if>
+				<if test="status != null">and c.status = #{status}</if>
+				<if test="minCreateTime != null">and c.create_time &gt;= #{minCreateTime}</if>
+				<if test="maxCreateTime != null">and c.create_time &lt;= #{maxCreateTime}</if>
+				<if test="order != null">
+					order by c.${order}
+				</if>
+				<if test="desc != null and desc == 1">
+					desc
+				</if>
+				<if test="offset != null and size != null">
+					limit #{offset}, #{size}
+				</if>
+		) as c join houses as h on c.house_uuid = h.uuid left join districts as d on h.district_id = d.id
+			left join users as u on c.user_uuid = u.uuid left join house_comment as re on c.uuid = re.reply_uuid
+			left join users as reu on re.user_uuid = reu.uuid
+	</select>
+	
+	<select id="selectCommentWithHouseByUuid" resultMap="commentResult">
+		select
+			c.uuid as c_uuid, c.reply_uuid as c_reply_uuid, c.level as c_level, c.content as c_content, c.thumb as c_thumb, c.reply_count as c_reply_count,
+			c.comp_score as c_comp_score, c.auth_score as c_auth_score, c.satis_score as c_satis_score, c.serv_score as c_serv_score,
+			c.status as c_status, c.create_time as c_create_time,
+			h.uuid as h_uuid, h.title as h_title, h.community as h_community, h.room as h_room, h.hall as h_hall, h.kitchen as h_kitchen,
+			h.defend as h_defend, h.size as h_size, h.price as h_price, h.discount as h_discount, h.contact_name as h_contact_name,
+			h.contact_phone as h_contact_phone, h.contact_wechat as h_contact_wechat, h.reservation_count as h_reservation_count, h.comment_count as h_comment_count,
+			h.type as h_type, h.floor as h_floor, h.total_floor as h_total_floor, h.furnitures as h_furnitures, h.description as h_description,
+			h.detail as h_detail, h.pictures as h_pictures, h.status as h_status, h.free_time as h_free_time,
+			h.create_time as h_create_time, h.update_time as h_update_time,
+			d.id as d_id, d.code as d_code, d.name as d_name, d.parent as d_parent, d.level as d_level, d.status as d_status,
+			u.uuid as u_uuid, u.account as u_account, u.username as u_username, u.name as u_name, u.phone as u_phone,
+			u.email as u_email, u.identity as u_identity, u.head as u_head, u.type as u_type, u.status as u_status,
+			u.create_time as u_create_time
+		from house_comment as c join houses as h on c.house_uuid = h.uuid left join districts as d on h.district_id = d.id
+			left join users as u on c.user_uuid = u.uuid
+		where c.uuid = #{uuid}
+	</select>
+	
+	<select id="selectCommentWithReplysByUuid" resultMap="commentResult">
+		select
+			c.uuid as c_uuid, c.reply_uuid as c_reply_uuid, c.level as c_level, c.content as c_content, c.thumb as c_thumb, c.reply_count as c_reply_count,
+			c.comp_score as c_comp_score, c.auth_score as c_auth_score, c.satis_score as c_satis_score, c.serv_score as c_serv_score,
+			c.status as c_status, c.create_time as c_create_time,
+			u.uuid as u_uuid, u.account as u_account, u.username as u_username, u.name as u_name, u.phone as u_phone,
+			u.email as u_email, u.identity as u_identity, u.head as u_head, u.type as u_type, u.status as u_status,
+			u.create_time as u_create_time,
+			re.uuid as re_uuid, re.reply_uuid as re_reply_uuid, re.level as re_level, re.content as re_content, re.thumb as re_thumb, re.reply_count as re_reply_count,
+			re.comp_score as re_comp_score, re.auth_score as re_auth_score, re.satis_score as re_satis_score, re.serv_score as re_serv_score,
+			re.status as re_status, re.create_time as re_create_time,
+			reu.uuid as reu_uuid, reu.account as reu_account, reu.username as reu_username, reu.name as reu_name, reu.phone as reu_phone,
+			reu.email as reu_email, reu.identity as reu_identity, reu.head as reu_head, reu.type as reu_type, reu.status as reu_status,
+			reu.create_time as reu_create_time
+		from house_comment as c left join users as u on c.user_uuid = u.uuid left join house_comment as re on c.uuid = re.reply_uuid
+			left join users as reu on re.user_uuid = reu.uuid
+		where c.uuid = #{uuid}
+	</select>
+	
+	<select id="selectCommentCount" resultType="java.lang.Integer" parameterType="com.iyuezu.mybatis.params.HouseCommentParams">
+		select count(1) from house_comment as c where c.level = 1
+			<if test="uuid != null">and c.uuid = #{uuid}</if>
+			<if test="houseUuid != null">and c.house_uuid = #{houseUuid}</if>
+			<if test="userUuid != null">and c.user_uuid = #{userUuid}</if>
+			<if test="minThumb != null">and c.thumb &gt;= #{minThumb}</if>
+			<if test="maxThumb != null">and c.thumb &lt;= #{maxThumb}</if>
+			<if test="minCompScore != null">and c.comp_score &gt;= #{minCompScore}</if>
+			<if test="maxCompScore != null">and c.comp_score &lt;= #{maxCompScore}</if>
+			<if test="status != null">and c.status = #{status}</if>
+			<if test="minCreateTime != null">and c.create_time &gt;= #{minCreateTime}</if>
+			<if test="maxCreateTime != null">and c.create_time &lt;= #{maxCreateTime}</if>
+	</select>
+	
+	<insert id="insertHouseComment" parameterType="HouseComment">
+		insert into house_comment (
+			uuid, user_uuid, house_uuid, reply_uuid, level, content, thumb, reply_count, comp_score, auth_score, satis_score, serv_score, status, create_time
+		) values (
+			#{uuid, jdbcType=VARCHAR}, #{user.uuid, jdbcType=VARCHAR}, #{house.uuid, jdbcType=VARCHAR}, #{replyUuid, jdbcType=VARCHAR},
+			#{level, jdbcType=TINYINT}, #{content, jdbcType=VARCHAR}, #{thumb, jdbcType=INTEGER}, #{replyCount, jdbcType=INTEGER}, #{compScore, jdbcType=NUMERIC},
+			#{authScore, jdbcType=NUMERIC}, #{satisScore, jdbcType=NUMERIC}, #{servScore, jdbcType=NUMERIC}, #{status, jdbcType=TINYINT},
+			#{createTime, jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="updateHouseComment" parameterType="HouseComment">
+		update house_comment
+		<trim prefix="set" prefixOverrides=",">
+			<if test="user != null and user.uuid != null">, user_uuid = #{user.uuid}</if>
+			<if test="house != null and house.uuid != null">, house_uuid = #{house.uuid}</if>
+			<if test="replyUuid != null">, reply_uuid = #{replyUuid}</if>
+			<if test="level != null">, level = #{level}</if>
+			<if test="content != null">, content = #{content}</if>
+			<if test="thumb != null">, thumb = #{thumb}</if>
+			<if test="replyCount != null">, reply_count = #{replyCount}</if>
+			<if test="compScore != null">, comp_score = #{compScore}</if>
+			<if test="authScore != null">, auth_score = #{authScore}</if>
+			<if test="satisScore != null">, satis_score = #{satisScore}</if>
+			<if test="servScore != null">, serv_score = #{servScore}</if>
+			<if test="status != null">, status = #{status}</if>
+			<if test="createTime != null">, create_time = #{createTime}</if>
+		</trim>
+		where uuid = #{uuid}
+	</update>
+	
+	<update id="raiseCommentThumb">
+		update house_comment set thumb = thumb + 1 where uuid = #{uuid}
+	</update>
+	
+	<update id="reduceCommentThumb">
+		update house_comment set thumb = thumb - 1 where uuid = #{uuid}
+	</update>
+	
+	<select id="selectThumbsWithComment" parameterType="HouseCommentThumb" resultMap="thumbResult">
+		select
+			t.uuid as t_uuid, t.user_ip as t_user_ip, t.status as t_status, t.create_time as t_create_time, t.update_time as t_update_time,
+			c.uuid as c_uuid, c.reply_uuid as c_reply_uuid, c.level as c_level, c.content as c_content, c.thumb as c_thumb,
+			c.comp_score as c_comp_score, c.auth_score as c_auth_score, c.satis_score as c_satis_score, c.serv_score as c_serv_score,
+			c.status as c_status, c.create_time as c_create_time,
+			u.uuid as u_uuid, u.account as u_account, u.username as u_username, u.name as u_name, u.phone as u_phone,
+			u.email as u_email, u.identity as u_identity, u.head as u_head, u.type as u_type, u.status as u_status,
+			u.create_time as u_create_time
+		from house_comment_thumb as t join house_comment as c on t.comment_uuid = c.uuid left join users as u on c.user_uuid = u.uuid
+		<where>
+			<if test="uuid != null">and t.uuid = #{uuid}</if>
+			<if test="comment != null and comment.uuid != null">and t.comment_uuid = #{comment.uuid}</if>
+			<if test="user != null and user.uuid != null">and t.user_uuid = #{user.uuid}</if>
+			<if test="userIp != null">and t.user_ip = #{userIp}</if>
+			<if test="status != null">and t.status = #{status}</if>
+		</where>
+	</select>
+	
+	<select id="selectThumbsWithUser" parameterType="HouseCommentThumb" resultMap="thumbResult">
+		select
+			t.uuid as t_uuid, t.user_ip as t_user_ip, t.status as t_status, t.create_time as t_create_time, t.update_time as t_update_time,
+			tu.uuid as tu_uuid, tu.account as tu_account, tu.username as tu_username, tu.name as tu_name, tu.phone as tu_phone,
+			tu.email as tu_email, tu.identity as tu_identity, tu.head as tu_head, tu.type as tu_type, tu.status as tu_status,
+			tu.create_time as tu_create_time
+		from house_comment_thumb as t left join users as tu on t.user_uuid = tu.uuid
+		<where>
+			<if test="uuid != null">and t.uuid = #{uuid}</if>
+			<if test="comment != null and comment.uuid != null">and t.comment_uuid = #{comment.uuid}</if>
+			<if test="user != null and user.uuid != null">and t.user_uuid = #{user.uuid}</if>
+			<if test="userIp != null">and t.user_ip = #{userIp}</if>
+			<if test="status != null">and t.status = #{status}</if>
+		</where>
+	</select>
+	
+	<select id="selectThumbs" parameterType="HouseCommentThumb" resultMap="thumbResult">
+		select
+			t.uuid as t_uuid, t.user_ip as t_user_ip, t.status as t_status, t.create_time as t_create_time, t.update_time as t_update_time,
+			tu.uuid as tu_uuid, tu.account as tu_account, tu.username as tu_username, tu.name as tu_name, tu.phone as tu_phone,
+			tu.email as tu_email, tu.identity as tu_identity, tu.head as tu_head, tu.type as tu_type, tu.status as tu_status,
+			tu.create_time as tu_create_time,
+			c.uuid as c_uuid, c.reply_uuid as c_reply_uuid, c.level as c_level, c.content as c_content, c.thumb as c_thumb,
+			c.comp_score as c_comp_score, c.auth_score as c_auth_score, c.satis_score as c_satis_score, c.serv_score as c_serv_score,
+			c.status as c_status, c.create_time as c_create_time,
+			u.uuid as u_uuid, u.account as u_account, u.username as u_username, u.name as u_name, u.phone as u_phone,
+			u.email as u_email, u.identity as u_identity, u.head as u_head, u.type as u_type, u.status as u_status,
+			u.create_time as u_create_time
+		from house_comment_thumb as t left join users as tu on t.user_uuid = tu.uuid join house_comment as c on t.comment_uuid = c.uuid
+			left join users as u on c.user_uuid = u.uuid
+		<where>
+			<if test="uuid != null">and t.uuid = #{uuid}</if>
+			<if test="comment != null and comment.uuid != null">and t.comment_uuid = #{comment.uuid}</if>
+			<if test="user != null and user.uuid != null">and t.user_uuid = #{user.uuid}</if>
+			<if test="userIp != null">and t.user_ip = #{userIp}</if>
+			<if test="status != null">and t.status = #{status}</if>
+		</where>
+	</select>
+	
+	<select id="selectThumbByUuid" resultMap="thumbResult">
+		select
+			t.uuid as t_uuid, t.user_ip as t_user_ip, t.status as t_status, t.create_time as t_create_time, t.update_time as t_update_time,
+			tu.uuid as tu_uuid, tu.account as tu_account, tu.username as tu_username, tu.name as tu_name, tu.phone as tu_phone,
+			tu.email as tu_email, tu.identity as tu_identity, tu.head as tu_head, tu.type as tu_type, tu.status as tu_status,
+			tu.create_time as tu_create_time,
+			c.uuid as c_uuid, c.reply_uuid as c_reply_uuid, c.level as c_level, c.content as c_content, c.thumb as c_thumb,
+			c.comp_score as c_comp_score, c.auth_score as c_auth_score, c.satis_score as c_satis_score, c.serv_score as c_serv_score,
+			c.status as c_status, c.create_time as c_create_time,
+			u.uuid as u_uuid, u.account as u_account, u.username as u_username, u.name as u_name, u.phone as u_phone,
+			u.email as u_email, u.identity as u_identity, u.head as u_head, u.type as u_type, u.status as u_status,
+			u.create_time as u_create_time
+		from house_comment_thumb as t left join users as tu on t.user_uuid = tu.uuid join house_comment as c on t.comment_uuid = c.uuid
+			left join users as u on c.user_uuid = u.uuid
+		where t.uuid = #{uuid}
+	</select>
+	
+	<insert id="insertHouseCommentThumb">
+		insert into house_comment_thumb (
+			uuid, comment_uuid, user_uuid, user_ip, status, create_time, update_time
+		) values (
+			#{uuid, jdbcType=VARCHAR}, #{comment.uuid, jdbcType=VARCHAR}, #{user.uuid, jdbcType=VARCHAR}, #{userIp, jdbcType=VARCHAR},
+			#{status, jdbcType=TINYINT}, #{createTime, jdbcType=BIGINT}, #{updateTime, jdbcType=BIGINT}
+		)
+	</insert>
+	
+	<update id="updateHouseCommentThumb">
+		update house_comment_thumb
+		<trim prefix="set" prefixOverrides=",">
+			<if test="comment != null and comment.uuid != null">, comment_uuid = #{comment.uuid}</if>
+			<if test="user != null and user.uuid != null">, user_uuid = #{user.uuid}</if>
+			<if test="userIp != null">, user_ip = #{userIp}</if>
+			<if test="status != null">, status = #{status}</if>
+			<if test="createTime != null">, create_time = #{createTime}</if>
+			<if test="updateTime != null">, update_time = #{updateTime}</if>
+		</trim>
+		where uuid = #{uuid}
+	</update>
+	
+	<update id="raiseReplyCount">
+		update house_comment set reply_count = reply_count + 1 where uuid = #{uuid}
+	</update>
+	
+	<update id="reduceReplyCount">
+		update house_comment set reply_count = reply_count - 1 where uuid = #{uuid}
+	</update>
+	
+	<select id="selectThumbCommentUuids" parameterType="HouseCommentThumb" resultType="java.lang.String">
+		select comment_uuid from house_comment_thumb where status = 1
+		<if test="userUuid != null">and user_uuid = #{userUuid}</if>
+		<if test="userIp != null">and user_ip = #{userIp}</if>
+	</select>
+
+</mapper>

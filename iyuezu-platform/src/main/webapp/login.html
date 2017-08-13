@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>I悦租</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="//res.wx.qq.com/open/libs/weui/1.0.2/weui.min.css">
+<link rel="stylesheet" href="./css/global.css">
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="./js/jquery.cookie.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/login.js"></script>
+
+</head>
+
+<body>
+	<div class="page">
+		<div class="hd">
+			<h1 class="page_title">用户登录</h1>
+		</div>
+	    <!-- <div class="page__hd">
+	        <h1 class="page__title">用户登录</h1>
+	        <p class="page__desc">表单输入</p>
+	    </div> -->
+	    <div class="page__bd">
+
+			<div class="weui-cells weui-cells_form">
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<label class="weui-label">账号</label>
+					</div>
+					<div class="weui-cell__bd">
+						<input id="account" class="weui-input" placeholder="请输入账号或手机号" />
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<label class="weui-label">密码</label>
+					</div>
+					<div class="weui-cell__bd">
+						<input id="password" class="weui-input" type="password" placeholder="请输入密码" />
+					</div>
+				</div>
+
+				<!-- <div class="weui-cell weui-cell_vcode">
+					<div class="weui-cell__hd">
+						<label class="weui-label">验证码</label>
+					</div>
+					<div class="weui-cell__bd">
+						<input class="weui-input" type="number" placeholder="请输入验证码" />
+					</div>
+					<div class="weui-cell__ft">
+						<img class="weui-vcode-img" src="./images/test1.jpg" />
+					</div>
+				</div> -->
+				
+				<div id="tips" class="weui-cells__tips" style="color:red;display:none;"></div>
+				
+				<div class="weui-cell">
+					<div class="weui_cells_tips">
+						<a href="javascript:forgetPassword();">忘记密码？</a>
+						<a href="javascript:register();" style="position: absolute;right:30px;top:33%;">立即注册</a>
+					</div>
+				</div>
+				
+			</div>
+			
+			<div class="weui-btn-area">
+				<a id="submit-login" class="weui-btn weui-btn_primary" href="javascript:void(0);">确定</a>
+			</div>
+
+		</div>
+		
+		<br>
+		
+		<div class="weui-footer">
+			<p class="weui-footer__links">
+				<a href="javascript:void(0);" class="weui-footer__link">I悦租</a>
+			</p>
+			<p class="weui-footer__text">Copyright © www.iyuezu.cn</p>
+		</div>
+
+	</div>
+</body>
+</html>

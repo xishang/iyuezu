@@ -1,0 +1,106 @@
+<html lang="en" class="pixel-ratio-1">
+<head>
+<meta charset="UTF-8">
+<title>I悦租</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="//res.wx.qq.com/open/libs/weui/1.0.2/weui.min.css">
+<link rel="stylesheet" href="./css/global.css">
+<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<script type="text/javascript" src="//g.alicdn.com/sj/lib/zepto/zepto.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="./js/jquery.cookie.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/rent_reservation_list.js"></script>
+
+</head>
+
+<body>
+
+	<div class="page">
+	
+		<header class="bar bar-nav">
+			<button id="reservation-statistics" class="button pull-right">统计</button>
+			<h1 id="page-title" class="title">求租信息预约历史</h1>
+		</header>
+
+		<nav id="page-nav" class="bar bar-tab">
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+		</nav>
+		
+		<div class="content">
+		
+			<div id="reservation-list"></div>
+			
+			<div id="load-more" class="content-block-title bottom-link" style="display: none;">加载更多</div>
+			
+			<div id="no-more-label" class="content-block-title" style="display: none;">没有更多预约了</div>
+
+			<!-- 加载提示符 -->
+			<div id="loading-icon" class="infinite-scroll-preloader" style="display: none;margin-top:20px;">
+				<div class="preloader"></div>
+			</div>
+			
+			<div id="confirm-dialog" style="display: none;">
+				<div class="weui-mask"></div>
+				<div class="weui-dialog">
+					<div class="weui-dialog__hd">
+						<strong class="weui-dialog__title">提示</strong>
+					</div>
+					<div id="confirm-title" class="weui-dialog__bd"></div>
+					<div class="weui-dialog__ft">
+						<a href="javascript:hideConfirmDialog();" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+						<a id="submit-status" href="javascript:void(0);" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+					</div>
+				</div>
+			</div>
+			
+			<div id="remark-dialog" style="display: none;width:80%;">
+	            <div class="weui-mask"></div>
+	            <div class="weui-dialog">
+	                <div class="weui-dialog__hd"><strong id="remark-title" class="weui-dialog__title"></strong></div>
+	                <div class="weui-dialog__bd">
+	
+						<div class="weui-cells weui-cells_form">
+							<div class="weui-cell">
+								<div class="weui-cell__bd">
+									<textarea id="remark-content" class="weui-textarea" placeholder="请输入备注信息..." rows="5"></textarea>
+									<div class="weui-textarea-counter">
+										<span id="detail-count">0</span>/300
+									</div>
+								</div>
+							</div>
+						</div>
+	                </div>
+	                <div class="weui-dialog__ft">
+	                    <a href="javascript:hideRemarkDialog();" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+	                    <a id="submit-status-remark" href="javascript:void(0);" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+	                </div>
+	            </div>
+	        </div>
+			
+		</div>
+
+	</div>
+
+</body>
+</html>

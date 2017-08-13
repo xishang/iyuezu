@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc  http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<context:component-scan base-package="com.iyuezu.platform.controller" />
+
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="false">
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="objectMapper" ref="objectMapper"/>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	
+	<mvc:default-servlet-handler />
+	<!-- mvc:default-servlet-handler 代替  mvc:resources mapping="/" location="/" -->
+	<!-- <mvc:resources mapping="/" location="/" /> -->
+
+	<bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper">
+		<property name="serializationInclusion">
+			<value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>
+		</property>
+		<property name="dateFormat">
+			<bean class="java.text.SimpleDateFormat">
+				<constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 配置内容协商视图解析 -->
+	<bean id="contentNegotiatingViewResolver"
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<!-- 设置内容协商管理器 -->
+		<property name="contentNegotiationManager" ref="contentNegotiationManager"></property>
+		<!-- 设置默认视图 -->
+		<property name="defaultViews">
+			<list>
+				<ref bean="mappingJacksonJsonView" />
+				<!-- <ref bean="marshallingView" /> -->
+			</list>
+		</property>
+		<!-- 设置视图解析器 -->
+		<property name="viewResolvers">
+			<list>
+				<ref bean="defalutViewResolver" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="defalutViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+
+	<!-- JSON视图 -->
+	<bean id="mappingJacksonJsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+	
+	<!-- XML视图 -->
+	<!-- <bean id="marshallingView"
+		class="org.springframework.web.servlet.view.xml.MarshallingView">
+		<property name="marshaller">
+			<bean class="org.springframework.oxm.xstream.XStreamMarshaller">
+				<property name="supportedClasses">
+					<list>
+						<value>java.util.Collection</value>
+						<value>org.laohu.modules.school.model.School</value>
+						<value>org.laohu.modules.school.model.Laboratory</value>
+						<value>org.laohu.modules.school.model.stuff.LabMgr</value>
+					</list>
+				</property>
+				<property name="aliases">
+					<map>
+						<entry value="org.laohu.modules.school.model.School" key="school"></entry>
+						<entry value="org.laohu.modules.school.model.Laboratory"
+							key="laboratory"></entry>
+						<entry value="org.laohu.modules.school.model.stuff.LabMgr"
+							key="labmgr"></entry>
+					</map>
+				</property>
+			</bean>
+		</property>
+	</bean> -->
+
+	<bean id="contentNegotiationManager"
+		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="mediaTypes">
+			<props>
+				<prop key="json">application/json</prop>
+				<prop key="xml">application/xml</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- SpringMVC上传文件时，需要配置MultipartResolver处理器 -->
+	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> -->
+		<!-- <property name="defaultEncoding" value="UTF-8" /> -->
+		<!-- 指定所上传文件的总大小不能超过200KB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
+		<!-- <property name="maxUploadSize" value="200000" /> -->
+	<!-- </bean> -->
+
+	<!-- SpringMVC在超出上传文件限制时，会抛出org.springframework.web.multipart.MaxUploadSizeExceededException -->
+	<!-- 该异常是SpringMVC在检查上传的文件信息时抛出来的，而且此时还没有进入到Controller方法中 -->
+	<!-- <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"> -->
+		<!-- <property name="exceptionMappings"> -->
+			<!-- <props> -->
+				<!-- 遇到MaxUploadSizeExceededException异常时，自动跳转到/WEB-INF/jsp/error_fileupload.jsp页面 -->
+				<!-- <prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">error_fileupload</prop> -->
+			<!-- </props> -->
+		<!-- </property> -->
+	<!-- </bean> -->
+	
+</beans>

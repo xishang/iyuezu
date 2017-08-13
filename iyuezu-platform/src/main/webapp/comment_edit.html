@@ -1,0 +1,128 @@
+<html lang="en" class="pixel-ratio-1">
+<head>
+<meta charset="UTF-8">
+<title>I悦租</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="./css/star-rating.min.css">
+<link rel="stylesheet" href="//res.wx.qq.com/open/libs/weui/1.0.2/weui.min.css">
+<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<script type="text/javascript" src="//g.alicdn.com/sj/lib/zepto/zepto.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="./js/jquery.cookie.js"></script>
+<script type="text/javascript" src="./js/star-rating.min.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/comment_edit.js"></script>
+
+</head>
+
+<body>
+
+	<div class="page">
+
+		<header class="bar bar-nav">
+			<h1 class="title">发表评论</h1>
+		</header>
+
+		<nav id="page-nav" class="bar bar-tab">
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+		</nav>
+
+		<div class="content">
+			
+			<div>
+			<div class="card">
+				<div class="card-header">综合评分：<span id="comp-score"></span></div>
+				<div class="card-content">
+					<div class="card-content-inner">
+						<input id="input-comp" class="rating rating-loading"  data-show-clear="false" data-show-caption="false" data-min="1" data-max="5" data-step="0.1">
+					</div>
+				</div>
+			</div>
+			
+			<div class="card">
+				<!-- <div class="card-header">综合评分：<span id="comp-score"></span></div> -->
+				<div class="card-content">
+					<div class="card-content-inner">
+						<label for="input-auth" class="control-label">房源真实度：<span id="auth-score"></span></label>
+						<input id="input-auth" name="input-auth" class="rating rating-loading"  data-show-clear="false" data-show-caption="false" data-min="1" data-max="5" data-step="0.1">
+					</div>
+				</div>
+				<div class="card-content">
+					<div class="card-content-inner">
+						<label for="input-satis" class="control-label">房源满意度：<span id="satis-score"></span></label>
+						<input id="input-satis" name="input-satis" class="rating rating-loading"  data-show-clear="false" data-show-caption="false" data-size="md" data-min="1" data-max="5" data-step="0.1">
+					</div>
+				</div>
+				<div class="card-content">
+					<div class="card-content-inner">
+						<label for="input-serv" class="control-label">服务满意度：<span id="serv-score"></span></label>
+						<input id="input-serv" name="input-satis" class="rating rating-loading"  data-show-clear="false" data-show-caption="false" data-size="md" data-min="1" data-max="5" data-step="0.1">
+					</div>
+				</div>
+			</div>
+			</div>
+			
+			<div class="content-block-title">评论详情</div>
+			<div class="weui_cells weui_cells_form">
+				<div class="weui_cell">
+					<div class="weui_cell_bd weui_cell_primary">
+						<textarea id="detail" class="weui_textarea" placeholder="请输入详细评论" rows="5"></textarea>
+						<div class="weui_textarea_counter">
+							<span id="detail-count">0</span>/500
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="content-block">
+				<div class="row">
+					<div class="col-50">
+						<a href="javascript:showCancelDialog();" class="button button-big button-fill button-danger">取消</a>
+					</div>
+					<div class="col-50">
+						<a id="submit-comment" href="javascript:void(0);" class="button button-big button-fill button-success">提交</a>
+					</div>
+				</div>
+			</div>
+			
+			<div id="cancel-dialog" style="display: none;">
+				<div class="weui-mask"></div>
+				<div class="weui-dialog">
+					<div class="weui-dialog__hd">
+						<strong class="weui-dialog__title">警告</strong>
+					</div>
+					<div class="weui-dialog__bd">你还没有提交评论内容，确定退出吗？</div>
+					<div class="weui-dialog__ft">
+						<a href="javascript:hideCancelDialog();" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+						<a href="javascript:window.history.go(-1);" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+
+	</div>
+
+</body>
+</html>

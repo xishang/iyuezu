@@ -1,0 +1,100 @@
+<html lang="en" class="pixel-ratio-1">
+<head>
+<meta charset="UTF-8">
+<title>I悦租</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="//res.wx.qq.com/open/libs/weui/1.0.2/weui.min.css">
+<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<script type="text/javascript" src="//g.alicdn.com/sj/lib/zepto/zepto.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="./js/jquery.cookie.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/personal_info.js"></script>
+
+</head>
+
+<body>
+
+	<div class="page">
+
+		<header class="bar bar-nav">
+			<button id="edit-info" class="button pull-right" onclick="editPersonalInfo();">编辑</button>
+			<h1 class="title">我的信息</h1>
+		</header>
+
+		<nav id="page-nav" class="bar bar-tab">
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+		</nav>
+
+		<div class="content">
+			
+			<div style="margin:10px 0 10px 20px;">
+				<img id="personal-head" class="img-circle" style="width: 80px; height: 80px;border-radius: 50%;vertical-align: middle;" src="./images/unknown.png">
+				<strong id="personal-name" style="margin-left:10px;">未登录</strong>
+			</div>
+
+			<div class="weui-cells">
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<img src="./images/icon_name.png" alt="" style="width: 20px; margin-right: 5px; display: block">
+					</div>
+					<div class="weui-cell__bd">
+						<p>姓名</p>
+					</div>
+					<div id="name" class="weui-cell__ft">说明文字</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<img src="./images/icon_mobile.png" alt="" style="width: 20px; margin-right: 5px; display: block">
+					</div>
+					<div class="weui-cell__bd">
+						<p>手机号</p>
+					</div>
+					<div id="phone" class="weui-cell__ft"></div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<img src="./images/icon_email.png" alt="" style="width: 20px; margin-right: 5px; display: block">
+					</div>
+					<div class="weui-cell__bd">
+						<p>邮箱</p>
+					</div>
+					<div id="email" class="weui-cell__ft"></div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<img src="./images/icon_identity.png" alt="" style="width: 20px; margin-right: 5px; display: block">
+					</div>
+					<div class="weui-cell__bd">
+						<p>身份证号</p>
+					</div>
+					<div id="identity" class="weui-cell__ft"></div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iyuezu.mybatis.mapper.TargetMapper">
+
+	<resultMap id="targetResult" type="Target">
+		<result property="uuid" column="t_uuid" />
+		<result property="title" column="t_title" />
+		<result property="community" column="t_community" />
+		<result property="room" column="t_room" />
+		<result property="hall" column="t_hall" />
+		<result property="defend" column="t_defend" />
+		<result property="size" column="t_size" />
+		<result property="price" column="t_price" />
+		<result property="discount" column="t_discount" />
+		<result property="contactName" column="t_contact_name" />
+		<result property="contactPhone" column="t_contact_phone" />
+		<result property="contactWechat" column="t_contact_wechat" />
+		<result property="reservationCount" column="t_reservation_count" />
+		<result property="type" column="t_type" />
+		<result property="floor" column="t_floor" />
+		<result property="totalFloor" column="t_total_floor" />
+		<result property="furnitures" column="t_furnitures" />
+		<result property="description" column="t_description" />
+		<result property="detail" column="t_detail" />
+		<result property="pictures" column="t_pictures" />
+		<result property="status" column="t_status" />
+		<result property="createTime" column="t_create_time" />
+		<association property="district" javaType="District" resultMap="targetDistrictResult" />
+		<association property="owner" javaType="User" resultMap="userResult" />
+		<association property="house" javaType="House" resultMap="houseResult" />
+	</resultMap>
+	
+	<resultMap id="targetDistrictResult" type="District">
+		<result property="id" column="td_id" />
+		<result property="code" column="td_code" />
+		<result property="name" column="td_name" />
+		<result property="parent" column="td_parent" />
+		<result property="level" column="td_level" />
+		<result property="status" column="td_status" />
+	</resultMap>
+	
+	<resultMap id="userResult" type="User">
+    	<result property="uuid" column="u_uuid" />
+    	<result property="account" column="u_account" />
+		<result property="username" column="u_username" />
+		<result property="name" column="u_name" />
+		<result property="phone" column="u_phone" />
+		<result property="email" column="u_email" />
+		<result property="identity" column="u_identity" />
+		<result property="head" column="u_head" />
+		<result property="type" column="u_type" />
+		<result property="status" column="u_status" />
+		<result property="createTime" column="u_create_time" />
+	</resultMap>
+	
+	<resultMap id="houseResult" type="House">
+    	<result property="uuid" column="h_uuid" />
+    	<result property="title" column="h_title" />
+    	<result property="community" column="h_community" />
+		<result property="room" column="h_room" />
+		<result property="hall" column="h_hall" />
+		<result property="defend" column="h_defend" />
+		<result property="size" column="h_size" />
+		<result property="price" column="h_price" />
+		<result property="discount" column="h_discount" />
+		<result property="contactName" column="h_contact_name" />
+		<result property="contactPhone" column="h_contact_phone" />
+		<result property="contactWechat" column="h_contact_wechat" />
+		<result property="reservationCount" column="h_reservation_count" />
+		<result property="type" column="h_type" />
+		<result property="floor" column="h_floor" />
+		<result property="totalFloor" column="h_total_floor" />
+		<result property="furnitures" column="h_furnitures" />
+		<result property="description" column="h_description" />
+		<result property="detail" column="h_detail" />
+		<result property="pictures" column="h_pictures" />
+		<result property="status" column="h_status" />
+		<result property="freeTime" column="h_free_time" />
+		<result property="createTime" column="h_create_time" />
+		<result property="updateTime" column="h_update_time" />
+		<association property="district" javaType="District" resultMap="houseDistrictResult" />
+	</resultMap>
+	
+	<resultMap id="houseDistrictResult" type="District">
+		<result property="id" column="hd_id" />
+		<result property="code" column="hd_code" />
+		<result property="name" column="hd_name" />
+		<result property="parent" column="hd_parent" />
+		<result property="level" column="hd_level" />
+		<result property="status" column="hd_status" />
+	</resultMap>
+	
+	<select id="selectTargetByUuid" resultMap="targetResult">
+		select
+			t.uuid as t_uuid, t.title as t_title, t.community as t_community, t.room as t_room, t.hall as t_hall,
+			t.defend as t_defend, t.size as t_size, t.price as t_price, t.discount as t_discount, t.contact_name as t_contact_name,
+			t.contact_phone as t_contact_phone, t.contact_wechat as t_contact_wechat,t.reservation_count as t_reservation_count, t.type as t_type,
+			t.floor as t_floor, t.total_floor as t_total_floor, t.furnitures as t_furnitures, t.description as t_description,
+			t.detail as t_detail, t.pictures as t_pictures, t.status as t_status, t.create_time as t_create_time,
+			td.id as td_id, td.code as td_code, td.name as td_name, td.parent as td_parent, td.level as td_level, td.status as td_status,
+			u.uuid as u_uuid, u.account as u_account, u.username as u_username, u.name as u_name, u.phone as u_phone,
+			u.email as u_email, u.identity as u_identity, u.head as u_head, u.type as u_type, u.status as u_status,
+			u.create_time as u_create_time,
+			h.uuid as h_uuid, h.title as h_title, h.community as h_community, h.room as h_room, h.hall as h_hall,
+			h.defend as h_defend, h.size as h_size, h.price as h_price, h.discount as h_discount, h.contact_name as h_contact_name,
+			h.contact_phone as h_contact_phone, h.contact_wechat as h_contact_wechat, h.reservation_count as h_reservation_count, h.type as h_type,
+			h.floor as h_floor, h.total_floor as h_total_floor, h.furnitures as h_furnitures, h.description as h_description,
+			h.detail as h_detail, h.pictures as h_pictures, h.status as h_status, h.free_time as h_free_time, h.create_time as h_create_time,
+			h.update_time as h_update_time,
+			hd.id as hd_id, hd.code as hd_code, hd.name as hd_name, hd.parent as hd_parent, hd.level as hd_level, hd.status as hd_status
+		from targets as t left join districts as td on t.district_id = td.id join users as u on t.user_uuid = u.uuid
+			join houses as h on t.house_uuid = h.uuid left join districts as hd on h.district_id = hd.id
+		where t.uuid = #{uuid}
+	</select>
+	
+	<insert id="insertTarget" parameterType="Target">
+		insert into targets (
+			uuid, house_uuid, user_uuid, title, district_id, community, room, hall, defend, size, price, discount, contact_name, contact_phone,
+			contact_wechat, reservation_count, type, floor, total_floor, furnitures, description, detail, pictures, status, create_time
+		) values (
+			#{uuid, jdbcType=VARCHAR}, #{house.uuid, jdbcType=VARCHAR}, #{user.uuid, jdbcType=VARCHAR}, #{title, jdbcType=VARCHAR},
+			#{district.id, jdbcType=INTEGER}, #{community, jdbcType=VARCHAR}, #{room, jdbcType=INTEGER}, #{hall, jdbcType=INTEGER}
+			#{defend, jdbcType=INTEGER}, #{size, jdbcType=NUMERIC}, #{price, jdbcType=NUMERIC}, #{discount, jdbcType=NUMERIC},
+			#{contactName, jdbcType=VARCHAR}, #{contactPhone, jdbcType=VARCHAR}, #{contactWechat, jdbcType=VARCHAR}, #{reservationCount, jdbcType=INTEGER},
+			#{type, jdbcType=TINYINT}, #{floor, jdbcType=INTEGER}, #{totalFloor, jdbcType=INTEGER}, #{furnitures, jdbcType=VARCHAR},
+			#{description, jdbcType=VARCHAR}, #{detail, jdbcType=VARCHAR}, #{pictures, jdbcType=VARCHAR}, #{status, jdbcType=TINYINT},
+			#{createTime, jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="updateTarget" parameterType="Target">
+		update targets
+		<trim prefix="set" prefixOverrides=",">
+			<if test="house != null and house.uuid != null">, house_uuid = #{house.uuid}</if>
+			<if test="user != null and user.uuid != null">, user_uuid = #{user.uuid}</if>
+			<if test="title != null">, title = #{title}</if>
+			<if test="district != null and district.id != null">, district_id = #{district.id}</if>
+			<if test="community != null">, community = #{community}</if>
+			<if test="room != null">, room = #{room}</if>
+			<if test="hall != null">, hall = #{hall}</if>
+			<if test="defend != null">, defend = #{defend}</if>
+			<if test="size != null">, size = #{size}</if>
+			<if test="price != null">, price = #{price}</if>
+			<if test="discount != null">, discount = #{discount}</if>
+			<if test="contactName != null">, contact_name = #{contactName}</if>
+			<if test="contactPhone != null">, contact_phone = #{contactPhone}</if>
+			<if test="contactWechat != null">, contact_wechat = #{contactWechat}</if>
+			<if test="reservationCount != null">, reservation_count = #{reservationCount}</if>
+			<if test="type != null">, type = #{type}</if>
+			<if test="floor != null">, floor = #{floor}</if>
+			<if test="totalFloor != null">, total_floor = #{totalFloor}</if>
+			<if test="furnitures != null">, furnitures = #{furnitures}</if>
+			<if test="description != null">, description = #{description}</if>
+			<if test="detail != null">, detail = #{detail}</if>
+			<if test="pictures != null">, pictures = #{pictures}</if>
+			<if test="status != null">, status = #{status}</if>
+			<if test="createTime != null">, create_time = #{createTime}</if>
+		</trim>
+		where uuid = #{uuid}
+	</update>
+
+</mapper>

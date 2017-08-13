@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.iyuezu.mybatis.mapper.ChatMapper">
+
+	<resultMap id="chatResult" type="Chat">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="remark" column="remark" />
+		<result property="status" column="status" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="activeTime" column="active_time" />
+	</resultMap>
+	
+	<resultMap id="chatUserResult" type="ChatUser">
+		<id property="id" column="id" />
+		<result property="chatId" column="chat_id" />
+		<result property="userUuid" column="user_uuid" />
+		<result property="userNick" column="user_nick" />
+		<result property="disturb" column="disturb" />
+		<result property="status" column="status" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+	
+	<resultMap id="userMemberResult" type="UserMember">
+    	<result property="uuid" column="uuid" />
+		<result property="username" column="username" />
+		<result property="userNick" column="user_nick" />
+		<result property="name" column="name" />
+		<result property="phone" column="phone" />
+		<result property="email" column="email" />
+		<result property="head" column="head" />
+		<result property="type" column="type" />
+	</resultMap>
+
+	<insert id="insertChat" useGeneratedKeys="true" keyProperty="id" parameterType="Chat">
+		insert into t_chat
+		(
+			name, remark, status, create_time, update_time, active_time
+		)
+		values
+		(
+			#{name, jdbcType=VARCHAR}, #{remark, jdbcType=VARCHAR}, #{status, jdbcType=TINYINT}, #{createTime, jdbcType=BIGINT},
+			#{updateTime, jdbcType=BIGINT}, #{activeTime, jdbcType=BIGINT}
+		)
+	</insert>
+	
+	<update id="updateChat" parameterType="Chat">
+		update t_chat
+		<trim prefix="set" prefixOverrides=",">
+			<if test="name != null">, name = #{name}</if>
+			<if test="remark != null">, remark = #{remark}</if>
+			<if test="status != null">, status = #{status}</if>
+			<if test="updateTime != null">, update_time = #{updateTime}</if>
+			<if test="activeTime != null">, active_time = #{activeTime}</if>
+		</trim>
+		where id = #{id}
+	</update>
+	
+	<select id="selectChatById" resultMap="chatResult">
+		select
+			id, name, remark, status, create_time, update_time, active_time
+		from t_chat
+		where id = #{id}
+	</select>
+	
+	<select id="selectActiveChats" resultMap="chatResult">
+		select
+			c.id as id, c.name as name, c.remark as remark, c.status as status,
+			c.create_time as create_time, c.update_time as update_time, c.active_time as active_time
+		from t_chat as c join t_chat_user as r on c.id = r.chat_id
+		where r.user_uuid = #{userUuid} order by c.active_time desc limit #{count}
+	</select>
+	
+	<insert id="insertChatUserRelations">
+		insert into t_chat_user
+		(
+			chat_id, user_uuid, disturb, status, create_time, update_time, active_time
+		)
+		values
+		<foreach collection="userUuids" item="userUuid" index="index" separator=",">
+		(
+			#{chatId, jdbcType=INTEGER}, #{userUuid, jdbcType=VARCHAR}, 1, 1, #{time, jdbcType=BIGINT},
+			#{time, jdbcType=BIGINT}, #{time, jdbcType=BIGINT}
+		)
+		</foreach>
+	</insert>
+	
+	<update id="updateChatUser" parameterType="ChatUser">
+		update t_chat_user
+		<trim prefix="set" prefixOverrides=",">
+			<if test="userNick != null">, user_nick = #{userNick}</if>
+			<if test="disturb != null">, disturb = #{disturb}</if>
+			<if test="status != null">, status = #{status}</if>
+			<if test="updateTime != null">, update_time = #{updateTime}</if>
+			<if test="activeTime != null">, active_time = #{activeTime}</if>
+		</trim>
+		where id = #{id}
+	</update>
+	
+	<select id="selectChatUsers" resultMap="chatUserResult">
+		select
+			id, chat_id, user_uuid, user_nick, disturb, status, create_time, update_time, active_time
+		from t_chat_user
+		<where>
+			<if test="id != null">and id = #{id}</if>
+			<if test="chatId != null">and chat_id = #{chatId}</if>
+			<if test="userUuid != null">and user_uuid = #{userUuid}</if>
+			<if test="status != null">and status = #{status}</if>
+		</where>
+	</select>
+	
+	<select id="selectUserUuidsByChatId" resultType="java.lang.String">
+		select user_uuid from t_chat_user where chat_id = #{chatId} and status = 1
+	</select>
+	
+	<select id="selectUsersByChatId" resultMap="userMemberResult">
+		select
+			u.uuid as uuid, u.username as username, r.user_nick as user_nick, u.name as name,
+			u.phone as phone, u.email as email, u.head as head, u.type as type
+		from users as u join t_chat_user as r on u.uuid = r.user_uuid
+		where r.chat_id = #{chatId} and r.status = 1
+	</select>
+	
+</mapper>

@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iyuezu.mybatis.mapper.RentReservationMapper">
+	
+	<resultMap id="reservationResult" type="RentReservation">
+		<result property="uuid" column="r_uuid" />
+		<result property="contactPhone" column="r_contact_phone" />
+		<result property="remark" column="r_remark" />
+		<result property="status" column="r_status" />
+		<result property="visitTime" column="r_visit_time" />
+		<result property="createTime" column="r_create_time" />
+		<association property="house" javaType="House" resultMap="houseResult" />
+		<association property="rentInfo" javaType="RentInfo" resultMap="rentInfoResult" />
+	</resultMap>
+
+	<resultMap id="houseResult" type="House">
+		<result property="uuid" column="h_uuid" />
+		<result property="title" column="h_title" />
+		<result property="community" column="h_community" />
+		<result property="room" column="h_room" />
+		<result property="hall" column="h_hall" />
+		<result property="kitchen" column="h_kitchen" />
+		<result property="defend" column="h_defend" />
+		<result property="size" column="h_size" />
+		<result property="price" column="h_price" />
+		<result property="discount" column="h_discount" />
+		<result property="contactName" column="h_contact_name" />
+		<result property="contactPhone" column="h_contact_phone" />
+		<result property="contactWechat" column="h_contact_wechat" />
+		<result property="reservationCount" column="h_reservation_count" />
+		<result property="type" column="h_type" />
+		<result property="floor" column="h_floor" />
+		<result property="totalFloor" column="h_total_floor" />
+		<result property="furnitures" column="h_furnitures" />
+		<result property="description" column="h_description" />
+		<result property="detail" column="h_detail" />
+		<result property="pictures" column="h_pictures" />
+		<result property="status" column="h_status" />
+		<result property="freeTime" column="h_free_time" />
+		<result property="createTime" column="h_create_time" />
+		<result property="updateTime" column="h_update_time" />
+		<result property="owner.uuid" column="h_user_uuid" />
+		<association property="district" javaType="District" resultMap="houseDistrictResult" />
+	</resultMap>
+	
+	<resultMap id="houseDistrictResult" type="District">
+		<result property="id" column="hd_id" />
+		<result property="code" column="hd_code" />
+		<result property="name" column="hd_name" />
+		<result property="parent" column="hd_parent" />
+		<result property="level" column="hd_level" />
+		<result property="status" column="hd_status" />
+	</resultMap>
+	
+	<resultMap id="rentInfoResult" type="RentInfo">
+    	<result property="uuid" column="ri_uuid" />
+    	<result property="room" column="ri_room" />
+    	<result property="kitchen" column="ri_kitchen" />
+		<result property="hall" column="ri_hall" />
+		<result property="defend" column="ri_defend" />
+		<result property="size" column="ri_size" />
+		<result property="minPrice" column="ri_min_price" />
+		<result property="maxPrice" column="ri_max_price" />
+		<result property="contactName" column="ri_contact_name" />
+		<result property="contactPhone" column="ri_contact_phone" />
+		<result property="contactWechat" column="ri_contact_wechat" />
+		<result property="reservationCount" column="ri_reservation_count" />
+		<result property="type" column="ri_type" />
+		<result property="detail" column="ri_detail" />
+		<result property="status" column="ri_status" />
+		<result property="createTime" column="ri_create_time" />
+		<result property="updateTime" column="ri_update_time" />
+		<result property="renter.uuid" column="ri_user_uuid" />
+    	<association property="district" javaType="District" resultMap="rentInfoDistrictResult" />
+	</resultMap>
+	
+	<resultMap id="rentInfoDistrictResult" type="District">
+		<result property="id" column="rd_id" />
+		<result property="code" column="rd_code" />
+		<result property="name" column="rd_name" />
+		<result property="parent" column="rd_parent" />
+		<result property="level" column="rd_level" />
+		<result property="status" column="rd_status" />
+	</resultMap>
+	
+	<select id="selectReservationCount" resultType="Integer" parameterType="com.iyuezu.mybatis.params.ReservationParams">
+		select count(1) from (
+			select distinct r.* from rent_reservation as r left join houses as h on r.house_uuid = h.uuid join rent_info as ri on r.rent_uuid = ri.uuid
+			<where>
+				<if test="uuid != null">and r.uuid = #{uuid}</if>
+				<if test="houseUuid != null">and r.house_uuid = #{houseUuid}</if>
+				<if test="rentUuid != null">and r.rent_uuid = #{rentUuid}</if>
+				<if test="ownerUuid != null">and h.user_uuid = #{ownerUuid}</if>
+				<if test="renterUuid != null">and ri.user_uuid = #{renterUuid}</if>
+				<if test="contactPhone != null">and r.contact_phone = #{contactPhone}</if>
+				<if test="minVisitTime != null">and r.visit_time &gt;= #{minVisitTime}</if>
+				<if test="maxVisitTime != null">and r.visit_time &lt;= #{maxVisitTime}</if>
+				<if test="minCreateTime != null">and r.create_time &gt;= #{minCreateTime}</if>
+				<if test="maxCreateTime != null">and r.create_time &lt;= #{maxCreateTime}</if>
+				<if test="statusList != null and statusList.size > 0">
+					and r.status in
+					<foreach collection="statusList" item="status" index="index" open="(" close=")" separator=",">
+						#{status}
+					</foreach>
+				</if>
+			</where>	
+		) as temp
+	</select>
+	
+	<select id="selectRentReservations" resultMap="reservationResult" parameterType="com.iyuezu.mybatis.params.ReservationParams">
+		select
+			r.uuid as r_uuid, r.contact_phone as r_contact_phone, r.remark as r_remark, r.status as r_status, r.visit_time as r_visit_time,
+			r.create_time as r_create_time,
+			h.uuid as h_uuid, h.title as h_title, h.community as h_community, h.room as h_room, h.hall as h_hall, h.kitchen as h_kitchen,
+			h.defend as h_defend, h.size as h_size, h.price as h_price, h.discount as h_discount, h.contact_name as h_contact_name,
+			h.contact_phone as h_contact_phone, h.contact_wechat as h_contact_wechat, h.reservation_count as h_reservation_count, h.type as h_type,
+			h.floor as h_floor, h.total_floor as h_total_floor, h.furnitures as h_furnitures, h.description as h_description, h.detail as h_detail,
+			h.pictures as h_pictures, h.status as h_status, h.free_time as h_free_time, h.create_time as h_create_time,
+			h.update_time as h_update_time,
+			hd.id as hd_id, hd.code as hd_code, hd.name as hd_name, hd.parent as hd_parent, hd.level as hd_level, hd.status as hd_status,
+			ri.uuid as ri_uuid, ri.room as ri_room, ri.hall as ri_hall, ri.kitchen as ri_kitchen, ri.defend as ri_defend, ri.size as ri_size,
+			ri.min_price as ri_min_price, ri.max_price as ri_max_price, ri.contact_name as ri_contact_name, ri.contact_phone as ri_contact_phone,
+			ri.contact_wechat as ri_contact_wechat, ri.reservation_count as ri_reservation_count, ri.type as ri_type, ri.detail as ri_detail,
+			ri.status as ri_status, ri.create_time as ri_create_time, ri.update_time as ri_update_time,
+			rd.id as rd_id, rd.code as rd_code, rd.name as rd_name, rd.parent as rd_parent, rd.level as rd_level, rd.status as rd_status
+		from rent_reservation as r left join houses as h on r.house_uuid = h.uuid left join districts as hd on h.district_id = hd.id
+			join rent_info as ri on r.rent_uuid = ri.uuid left join districts as rd on ri.district_id = rd.id
+		<where>
+			<if test="uuid != null">and r.uuid = #{uuid}</if>
+			<if test="houseUuid != null">and r.house_uuid = #{houseUuid}</if>
+			<if test="rentUuid != null">and r.rent_uuid = #{rentUuid}</if>
+			<if test="ownerUuid != null">and h.user_uuid = #{ownerUuid}</if>
+			<if test="renterUuid != null">and ri.user_uuid = #{renterUuid}</if>
+			<if test="contactPhone != null">and r.contact_phone = #{contactPhone}</if>
+			<if test="minVisitTime != null">and r.visit_time &gt;= #{minVisitTime}</if>
+			<if test="maxVisitTime != null">and r.visit_time &lt;= #{maxVisitTime}</if>
+			<if test="minCreateTime != null">and r.create_time &gt;= #{minCreateTime}</if>
+			<if test="maxCreateTime != null">and r.create_time &lt;= #{maxCreateTime}</if>
+			<if test="statusList != null and statusList.size > 0">
+				and r.status in
+				<foreach collection="statusList" item="status" index="index" open="(" close=")" separator=",">
+					#{status}
+				</foreach>
+			</if>
+		</where>
+		order by r.${order}
+		<if test="isDesc == 1"> desc</if>
+	</select>
+	
+	<select id="selectRentReservationsWithRentInfo" resultMap="reservationResult" parameterType="com.iyuezu.mybatis.params.ReservationParams">
+		select
+			r.uuid as r_uuid, r.contact_phone as r_contact_phone, r.remark as r_remark, r.status as r_status, r.visit_time as r_visit_time,
+			r.create_time as r_create_time,
+			ri.uuid as ri_uuid, ri.room as ri_room, ri.hall as ri_hall, ri.kitchen as ri_kitchen, ri.defend as ri_defend, ri.size as ri_size,
+			ri.min_price as ri_min_price, ri.max_price as ri_max_price, ri.contact_name as ri_contact_name, ri.contact_phone as ri_contact_phone,
+			ri.contact_wechat as ri_contact_wechat, ri.reservation_count as ri_reservation_count, ri.type as ri_type, ri.detail as ri_detail,
+			ri.status as ri_status, ri.create_time as ri_create_time, ri.update_time as ri_update_time,
+			rd.id as rd_id, rd.code as rd_code, rd.name as rd_name, rd.parent as rd_parent, rd.level as rd_level, rd.status as rd_status
+		from rent_reservation as r left join houses as h on r.house_uuid = h.uuid left join districts as hd on h.district_id = hd.id
+			join rent_info as ri on r.rent_uuid = ri.uuid left join districts as rd on ri.district_id = rd.id
+		<where>
+			<if test="uuid != null">and r.uuid = #{uuid}</if>
+			<if test="houseUuid != null">and r.house_uuid = #{houseUuid}</if>
+			<if test="rentUuid != null">and r.rent_uuid = #{rentUuid}</if>
+			<if test="ownerUuid != null">and h.user_uuid = #{ownerUuid}</if>
+			<if test="renterUuid != null">and ri.user_uuid = #{renterUuid}</if>
+			<if test="contactPhone != null">and r.contact_phone = #{contactPhone}</if>
+			<if test="minVisitTime != null">and r.visit_time &gt;= #{minVisitTime}</if>
+			<if test="maxVisitTime != null">and r.visit_time &lt;= #{maxVisitTime}</if>
+			<if test="minCreateTime != null">and r.create_time &gt;= #{minCreateTime}</if>
+			<if test="maxCreateTime != null">and r.create_time &lt;= #{maxCreateTime}</if>
+			<if test="statusList != null and statusList.size > 0">
+				and r.status in
+				<foreach collection="statusList" item="status" index="index" open="(" close=")" separator=",">
+					#{status}
+				</foreach>
+			</if>
+		</where>
+		order by r.${order}
+		<if test="isDesc == 1"> desc</if>
+	</select>
+	
+	<select id="selectRentReservationsWithHouse" resultMap="reservationResult" parameterType="com.iyuezu.mybatis.params.ReservationParams">
+		select
+			r.uuid as r_uuid, r.contact_phone as r_contact_phone, r.remark as r_remark, r.status as r_status, r.visit_time as r_visit_time,
+			r.create_time as r_create_time,
+			h.uuid as h_uuid, h.title as h_title, h.community as h_community, h.room as h_room, h.hall as h_hall, h.kitchen as h_kitchen,
+			h.defend as h_defend, h.size as h_size, h.price as h_price, h.discount as h_discount, h.contact_name as h_contact_name,
+			h.contact_phone as h_contact_phone, h.contact_wechat as h_contact_wechat, h.reservation_count as h_reservation_count, h.type as h_type,
+			h.floor as h_floor, h.total_floor as h_total_floor, h.furnitures as h_furnitures, h.description as h_description, h.detail as h_detail,
+			h.pictures as h_pictures, h.status as h_status, h.free_time as h_free_time, h.create_time as h_create_time,
+			h.update_time as h_update_time,
+			hd.id as hd_id, hd.code as hd_code, hd.name as hd_name, hd.parent as hd_parent, hd.level as hd_level, hd.status as hd_status,
+		from rent_reservation as r left join houses as h on r.house_uuid = h.uuid left join districts as hd on h.district_id = hd.id
+			join rent_info as ri on r.rent_uuid = ri.uuid left join districts as rd on ri.district_id = rd.id
+		<where>
+			<if test="uuid != null">and r.uuid = #{uuid}</if>
+			<if test="houseUuid != null">and r.house_uuid = #{houseUuid}</if>
+			<if test="rentUuid != null">and r.rent_uuid = #{rentUuid}</if>
+			<if test="ownerUuid != null">and h.user_uuid = #{ownerUuid}</if>
+			<if test="renterUuid != null">and ri.user_uuid = #{renterUuid}</if>
+			<if test="contactPhone != null">and r.contact_phone = #{contactPhone}</if>
+			<if test="minVisitTime != null">and r.visit_time &gt;= #{minVisitTime}</if>
+			<if test="maxVisitTime != null">and r.visit_time &lt;= #{maxVisitTime}</if>
+			<if test="minCreateTime != null">and r.create_time &gt;= #{minCreateTime}</if>
+			<if test="maxCreateTime != null">and r.create_time &lt;= #{maxCreateTime}</if>
+			<if test="statusList != null and statusList.size > 0">
+				and r.status in
+				<foreach collection="statusList" item="status" index="index" open="(" close=")" separator=",">
+					#{status}
+				</foreach>
+			</if>
+		</where>
+		order by r.${order}
+		<if test="isDesc == 1"> desc</if>
+	</select>
+	
+	<select id="selectRentReservationByUuid" resultMap="reservationResult">
+		select
+			r.uuid as r_uuid, r.contact_phone as r_contact_phone, r.remark as r_remark, r.status as r_status,
+			r.visit_time as r_visit_time, r.create_time as r_create_time,
+			h.uuid as h_uuid, h.title as h_title, h.community as h_community, h.room as h_room, h.hall as h_hall, h.kitchen as h_kitchen,
+			h.defend as h_defend, h.size as h_size, h.price as h_price, h.discount as h_discount, h.contact_name as h_contact_name,
+			h.contact_phone as h_contact_phone, h.contact_wechat as h_contact_wechat, h.reservation_count as h_reservation_count, h.type as h_type,
+			h.floor as h_floor, h.total_floor as h_total_floor, h.furnitures as h_furnitures, h.description as h_description, h.detail as h_detail,
+			h.pictures as h_pictures, h.status as h_status, h.free_time as h_free_time, h.create_time as h_create_time,
+			h.update_time as h_update_time, h.user_uuid as h_user_uuid,
+			hd.id as hd_id, hd.code as hd_code, hd.name as hd_name, hd.parent as hd_parent, hd.level as hd_level, hd.status as hd_status,
+			ri.uuid as ri_uuid, ri.room as ri_room, ri.hall as ri_hall, ri.kitchen as ri_kitchen, ri.defend as ri_defend, ri.size as ri_size,
+			ri.min_price as ri_min_price, ri.max_price as ri_max_price, ri.contact_name as ri_contact_name, ri.contact_phone as ri_contact_phone,
+			ri.contact_wechat as ri_contact_wechat, ri.reservation_count as ri_reservation_count, ri.type as ri_type, ri.detail as ri_detail,
+			ri.status as ri_status, ri.create_time as ri_create_time, ri.update_time as ri_update_time, ri.user_uuid as ri_user_uuid,
+			rd.id as rd_id, rd.code as rd_code, rd.name as rd_name, rd.parent as rd_parent, rd.level as rd_level, rd.status as rd_status
+		from rent_reservation as r left join houses as h on r.house_uuid = h.uuid left join districts as hd on h.district_id = hd.id
+			join rent_info as ri on r.rent_uuid = ri.uuid left join districts as rd on ri.district_id = rd.id
+		where r.uuid = #{uuid}
+	</select>
+	
+	<insert id="insertRentReservation" parameterType="RentReservation">
+		insert into rent_reservation (
+			uuid, rent_uuid, house_uuid, contact_phone, remark, status, visit_time, create_time
+		) values (
+			#{uuid, jdbcType=VARCHAR}, #{rentInfo.uuid, jdbcType=VARCHAR}, #{house.uuid, jdbcType=VARCHAR}, #{contactPhone, jdbcType=VARCHAR},
+			#{remark, jdbcType=VARCHAR}, #{status, jdbcType=TINYINT}, #{visitTime, jdbcType=BIGINT}, #{createTime, jdbcType=BIGINT}
+		)
+	</insert>
+
+	<update id="updateRentReservation" parameterType="RentReservation">
+		update rent_reservation
+		<trim prefix="set" prefixOverrides=",">
+			<if test="rentInfo != null and rentInfo.uuid != null">, rent_uuid = #{rentInfo.uuid}</if>
+			<if test="house != null and house.uuid != null">, house_uuid = #{house.uuid}</if>
+			<if test="contactPhone != null">, contact_phone = #{contactPhone}</if>
+			<if test="remark != null">, remark = #{remark}</if>
+			<if test="status != null">, status = #{status}</if>
+			<if test="visitTime != null">, visit_time = #{visitTime}</if>
+			<if test="createTime != null">, create_time = #{createTime}</if>
+		</trim>
+		where uuid = #{uuid}
+	</update>
+	
+	<update id="disableStatusByHouseUuid">
+		update rent_reservation set status = 0 where house_uuid = #{houseUuid}
+	</update>
+	
+	<update id="disableStatusByRentUuid">
+		update rent_reservation set status = 0 where rent_uuid = #{rentUuid}
+	</update>
+	
+	<insert id="insertReservationStatus" parameterType="RentReservationStatus">
+		insert into rent_reservation_status (
+			uuid, reservation_uuid, user_uuid, status, remark, timestamp
+		) values (
+			#{uuid, jdbcType=VARCHAR}, #{reservation.uuid, jdbcType=VARCHAR}, #{user.uuid, jdbcType=VARCHAR}, #{status, jdbcType=TINYINT},
+			#{remark, jdbcType=VARCHAR}, #{timestamp, jdbcType=BIGINT}
+		)
+	</insert>
+	
+	<select id="selectReservationRentInfos" resultMap="rentInfoResult">
+		select
+			ri.uuid as ri_uuid, ri.room as ri_room, ri.hall as ri_hall, ri.kitchen as ri_kitchen, ri.defend as ri_defend, ri.size as ri_size,
+			ri.min_price as ri_min_price, ri.max_price as ri_max_price, ri.contact_name as ri_contact_name, ri.contact_phone as ri_contact_phone,
+			ri.contact_wechat as ri_contact_wechat, ri.reservation_count as ri_reservation_count, ri.type as ri_type, ri.detail as ri_detail,
+			ri.status as ri_status, ri.create_time as ri_create_time, ri.update_time as ri_update_time,
+			rr.reservation_count as ri_reservation_count, rr.create_time as ri_update_time,
+			rd.id as rd_id, rd.code as rd_code, rd.name as rd_name, rd.parent as rd_parent, rd.level as rd_level, rd.status as rd_status
+		from rent_info as ri left join districts as rd on ri.district_id = rd.id
+			join (select rent_uuid, max(create_time) as create_time, count(1) as reservation_count from rent_reservation
+				<where>
+					<if test="statusList != null and statusList.size > 0">
+						and status in
+						<foreach collection="statusList" item="status" index="index" open="(" close=")" separator=",">
+							#{status}
+						</foreach>
+					</if>
+				</where>
+				group by rent_uuid
+			) as rr on ri.uuid = rr.rent_uuid where ri.user_uuid = #{renterUuid} order by rr.create_time desc
+			<if test="offset != null and size != null">
+				limit #{offset}, #{size}
+			</if>
+	</select>
+	
+	<select id="selectReservationHouses" resultMap="houseResult">
+		select
+			h.uuid as h_uuid, h.title as h_title, h.community as h_community, h.room as h_room, h.hall as h_hall, h.kitchen as h_kitchen,
+			h.defend as h_defend, h.size as h_size, h.price as h_price, h.discount as h_discount, h.contact_name as h_contact_name,
+			h.contact_phone as h_contact_phone, h.contact_wechat as h_contact_wechat, h.comment_count as h_comment_count,
+			h.type as h_type, h.floor as h_floor, h.total_floor as h_total_floor, h.furnitures as h_furnitures, h.description as h_description,
+			h.detail as h_detail, h.pictures as h_pictures, h.status as h_status, h.free_time as h_free_time,
+			h.create_time as h_create_time,
+			rr.reservation_count as h_reservation_count, rr.create_time as h_update_time,
+			hd.id as hd_id, hd.code as hd_code, hd.name as hd_name, hd.parent as hd_parent, hd.level as hd_level, hd.status as hd_status
+		from houses as h left join districts as hd on h.district_id = hd.id
+			join (select house_uuid, max(create_time) as create_time, count(1) as reservation_count from rent_reservation
+				<where>
+					<if test="statusList != null and statusList.size > 0">
+						and status in
+						<foreach collection="statusList" item="status" index="index" open="(" close=")" separator=",">
+							#{status}
+						</foreach>
+					</if>
+				</where>
+				group by house_uuid
+			) as rr on h.uuid = rr.house_uuid where h.user_uuid = #{ownerUuid} order by rr.create_time desc
+			<if test="offset != null and size != null">
+				limit #{offset}, #{size}
+			</if>
+	</select>
+
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.iyuezu.mybatis.mapper.DistrictMapper">
+
+	<insert id="insertDistrict" parameterType="District">
+		insert into districts (
+			code, name, parent, level, status
+		) values (
+			#{code, jdbcType=VARCHAR}, #{name, jdbcType=VARCHAR}, #{parent, jdbcType=INTEGER}, #{level, jdbcType=TINYINT}, #{status, jdbcType=TINYINT}
+		)
+	</insert>
+	
+	<update id="updateDistrict" parameterType="District">
+		update districts
+		<trim prefix="set" prefixOverrides=",">
+			<if test="code != null">, code = #{code}</if>
+			<if test="name != null">, name = #{name}</if>
+			<if test="parent != null">, parent = #{parent}</if>
+			<if test="level != null">, level = #{level}</if>
+			<if test="status != null">, status = #{status}</if>
+		</trim>
+		where id = #{id}
+	</update>
+	
+	<select id="selectDistricts" resultType="District" parameterType="District">
+		select id, code, name, parent, level, status from districts
+		<where>
+			<if test="id != null">and id = #{id}</if>
+			<if test="code != null">and code = #{code}</if>
+			<if test="name != null">and name = #{name}</if>
+			<if test="parent != null">and parent = #{parent}</if>
+			<if test="level != null">and level = #{level}</if>
+			<if test="status != null">and status = #{status}</if>
+		</where>
+	</select>
+	
+</mapper>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>I悦租</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="//res.wx.qq.com/open/libs/weui/1.0.2/weui.min.css">
+<link rel="stylesheet" href="./css/global.css">
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="./js/jquery.cookie.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/register.js"></script>
+
+</head>
+
+<body>
+	<div class="page">
+		<div class="hd">
+			<h1 class="page_title">用户注册</h1>
+		</div>
+	    <div class="page__bd">
+
+			<div class="weui-cells weui-cells_form">
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<label class="weui-label">账号</label>
+					</div>
+					<div class="weui-cell__bd">
+						<input id="account" class="weui-input" placeholder="请输入3-25个非中文字符" />
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<label class="weui-label">昵称</label>
+					</div>
+					<div class="weui-cell__bd">
+						<input id="username" class="weui-input" placeholder="请输入昵称" />
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<label class="weui-label">手机号</label>
+					</div>
+					<div class="weui-cell__bd">
+						<input id="phone" class="weui-input" type="number" placeholder="请输入手机号" />
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<label class="weui-label">密码</label>
+					</div>
+					<div class="weui-cell__bd">
+						<input id="password" class="weui-input" type="password" placeholder="请输入密码" />
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd">
+						<label class="weui-label">确认密码</label>
+					</div>
+					<div class="weui-cell__bd">
+						<input id="repeat-password" class="weui-input" type="password" placeholder="请确认密码" />
+					</div>
+				</div>
+
+				<div class="weui-cell weui-cell_select weui-cell_select-after">
+					<div class="weui-cell__hd">
+						<label for="" class="weui-label">类型</label>
+					</div>
+					<div class="weui-cell__bd">
+						<select id="type" class="weui-select" name="select2">
+							<option value="1">租客</option>
+							<option value="2">房东</option>
+						</select>
+					</div>
+				</div>
+
+			</div>
+			
+			<div id="tips" class="weui-cells__tips" style="color:red;display:none;"></div>
+			
+			<label for="weuiAgree" class="weui-agree">
+				<input id="weuiAgree" type="checkbox" class="weui-agree__checkbox">
+				<span class="weui-agree__text"> 阅读并同意<a href="javascript:void(0);">《相关条款》</a>
+				</span>
+			</label>
+			
+			<div class="weui-btn-area">
+				<a id="submit-register" class="weui-btn weui-btn_primary" href="javascript:void(0);">注册</a>
+			</div>
+
+		</div>
+		
+		<br>
+		
+		<div class="weui-footer">
+			<p class="weui-footer__links">
+				<a href="javascript:void(0);" class="weui-footer__link">I悦租</a>
+			</p>
+			<p class="weui-footer__text">Copyright © www.iyuezu.cn</p>
+		</div>
+
+	</div>
+</body>
+
+</html>

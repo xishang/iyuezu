@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.iyuezu.mybatis.mapper.ResourceMapper">
+
+	<resultMap id="resourceResult" type="Resource">
+		<result property="uuid" column="re_uuid" />
+		<result property="key" column="re_key_word" />
+		<result property="name" column="re_name" />
+		<result property="parent" column="re_parent" />
+		<result property="level" column="re_level" />
+		<result property="icon" column="re_icon" />
+		<result property="description" column="re_description" />
+		<result property="url" column="re_url" />
+		<result property="status" column="re_status" />
+		<collection property="roles" ofType="Role" javaType="ArrayList" resultMap="roleResult"/>
+	</resultMap>
+	
+	<resultMap id="roleResult" type="Role">
+		<result property="uuid" column="ro_uuid" />
+		<result property="key" column="ro_key_word" />
+		<result property="name" column="ro_name" />
+		<result property="parent" column="ro_parent" />
+		<result property="description" column="ro_description" />
+		<result property="status" column="ro_status" />
+	</resultMap>
+	
+	<insert id="insertResource" parameterType="Resource">
+		insert into resources (
+			uuid, key_word, name, parent, level, icon, description, url, status
+		) values (
+			#{uuid, jdbcType=VARCHAR}, #{key, jdbcType=VARCHAR}, #{name, jdbcType=VARCHAR}, #{parent, jdbcType=VARCHAR},
+			#{level, jdbcType=TINYINT}, #{icon, jdbcType=VARCHAR}, #{description, jdbcType=VARCHAR}, #{url, jdbcType=VARCHAR},
+			#{status, jdbcType=TINYINT}
+		)
+	</insert>
+	
+	<update id="updateResource" parameterType="Resource">
+		update resources
+		<trim prefix="set" prefixOverrides=",">
+			<if test="key != null">, key_word = #{key}</if>
+			<if test="name != null">, name = #{name}</if>
+			<if test="parent != null">, parent = #{parent}</if>
+			<if test="level != null">, level = #{level}</if>
+			<if test="icon != null">, icon = #{icon}</if>
+			<if test="description != null">, description = #{description}</if>
+			<if test="url != null">, url = #{url}</if>
+			<if test="status != null">, status = #{status}</if>
+		</trim>
+		where uuid = #{uuid}
+	</update>
+	
+	<select id="selectResourceByUuid" resultType="Resource">
+		select
+			re.uuid as uuid, re.key_word as key, re.name as name, re.parent as parent,
+			re.level as level, re.icon as icon, re.description as description, re.url as url,
+			re.status as status
+		from resources as re
+		where re.uuid = #{uuid}
+	</select>
+	
+	<select id="selectResources" resultType="Resource">
+		select
+			re.uuid as uuid, re.key_word as key, re.name as name, re.parent as parent,
+			re.level as level, re.icon as icon, re.description as description, re.url as url,
+			re.status as status order by uuid
+		from resources as re
+		<where>
+			<if test="level != null">and re.level = #{level}</if>
+			<if test="status != null">and re.status = #{status}</if>
+		</where>
+		<if test="offset != null and offset &gt; 0 and size != null and size &gt; 0">
+			limit #{offset}, #{size}
+		</if>
+	</select>
+	
+	<select id="selectResourcesByUser" resultType="Resource">
+		select
+			re.uuid as uuid, re.key_word as key, re.name as name, re.parent as parent,
+			re.level as level, re.icon as icon, re.description as description, re.url as url,
+			re.status as status
+		from resources as re join roleresourcerelation as rr on re.uuid = rr.resource_uuid join roles as ro on rr.role_uuid = ro.uuid
+			join userrolerelation as ur on ro.uuid = ur.role_uuid
+		<where>
+			<if test="userUuid != null">and ur.user_uuid = #{userUuid}</if>
+			<if test="status != null">and re.status = #{status}</if>
+		</where>
+		order by uuid
+		<if test="offset != null and offset &gt; 0 and size != null and size &gt; 0">
+			limit #{offset}, #{size}
+		</if>
+	</select>
+	
+	<select id="selectResourcesByRole" resultType="Resource">
+		select
+			re.uuid as uuid, re.key_word as key, re.name as name, re.parent as parent,
+			re.level as level, re.icon as icon, re.description as description, re.url as url,
+			re.status as status
+		from resources as re join roleresourcerelation as rr on re.uuid = rr.resource_uuid
+		<where>
+			<if test="roleUuid != null">and rr.role_uuid = #{roleUuid}</if>
+			<if test="status != null">and re.status = #{status}</if>
+		</where>
+		order by uuid
+		<if test="offset != null and offset &gt; 0 and size != null and size &gt; 0">
+			limit #{offset}, #{size}
+		</if>
+	</select>
+	
+	<select id="selectResourcesWithRole" resultMap="resourceResult">
+		select
+			re.uuid as re_uuid, re.key_word as re_key_word, re.name as re_name, re.parent as re_parent,
+			re.level as re_level, re.icon as re_icon, re.description as re_description, re.url as re_url,
+			re.status as re_status,
+			ro.uuid as ro_uuid, ro.key_word as ro_key_word, ro.name as ro_name, ro.parent as ro_parent,
+			ro.description as ro_description, ro.status as ro_status
+		from resources as re join roleresourcerelation as rr on re.uuid = rr.resource_uuid join roles as ro on rr.role_uuid = ro.uuid
+		<where>
+			<if test="resourceUuid != null">and re.uuid = #{resourceUuid}</if>
+			<if test="level != null">and re.level = #{level}</if>
+			<if test="status != null">and re.status = #{status}</if>
+		</where>
+	</select>
+
+</mapper>

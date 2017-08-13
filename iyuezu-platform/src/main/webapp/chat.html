@@ -1,0 +1,428 @@
+<html lang="en" class="pixel-ratio-1">
+<head>
+<meta charset="UTF-8">
+<title>I悦租</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="//res.wx.qq.com/open/libs/weui/1.0.2/weui.min.css">
+<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="./js/jquery.cookie.js"></script>
+<script type="text/javascript" src="//g.alicdn.com/sj/lib/zepto/zepto.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/chat.js"></script>
+
+<style type="text/css">
+.item-selected {
+	background-color: lightgreen;
+}
+</style>
+
+</head>
+
+<body>
+
+	<div class="page">
+
+		<header class="bar bar-nav">
+			<button id="chat-edit" class="button pull-right open-popup" data-popup=".popup-friend">添加好友</button>
+			<h1 id="chat-title" class="title">聊天信息</h1>
+		</header>
+
+		<nav id="page-nav" class="bar bar-tab">
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+		</nav>
+
+		<!-- <nav class="bar bar-nav bar-standard">
+			<h1 class="title">正在聊天...</h1>
+		</nav> -->
+
+		<div id="content-panel" class="content">
+		
+			<div class="buttons-tab fixed-tab" data-offset="44">
+				<a id="chat-tab-nav" href="#chat-tab" class="tab-link active button">最近</a>
+				<a id="talk-tab-nav" href="#talk-tab" class="tab-link button">聊天</a>
+				<a id="friend-tab-nav" href="#friend-tab" class="tab-link button">好友</a>
+			</div>
+
+
+			<div class="tabs">
+			
+				<div id="chat-tab" class="tab active">
+					<div id="chat-list" class="content-block">
+						<div class="card facebook-card" style="background-color:lightgreen;">
+							<div class="card-header">
+								<div class="facebook-avatar">
+									<img src="./images/head02.jpg" width="34" height="34">
+								</div>
+								<div class="facebook-name">詹姆斯</div>
+								<div class="facebook-date">星期一 3:47pm</div>
+							</div>
+						</div>
+						<div class="card facebook-card" style="background-color:lightgreen;">
+							<div class="card-header">
+								<div class="facebook-avatar">
+									<img src="./images/head02.jpg" width="34" height="34">
+								</div>
+								<div class="facebook-name">詹姆斯</div>
+								<div class="facebook-date">星期一 3:47pm</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+			
+			
+				<div id="talk-tab" class="tab">
+					<div id="content-list" class="content-block">
+						<div class="card facebook-card" style="background-color:lightyellow;">
+							<div class="card-header">
+								<div class="facebook-avatar">
+									<img src="./images/head01.jpg" width="34" height="34">
+								</div>
+								<div class="facebook-name">夜萧</div>
+								<div class="facebook-date">星期一 3:47pm</div>
+							</div>
+							<div class="card-content">
+								<div class="card-content-inner">头和尾的卡片。卡头是用来显示一些额外的信息，或自定义操作卡标题和页脚。</div>
+							</div>
+						</div>
+						<div class="card facebook-card">
+							<div class="card-header">
+								<div class="facebook-avatar">
+									<img src="./images/head01.jpg" width="34" height="34">
+								</div>
+								<div class="facebook-name">夜萧</div>
+								<div class="facebook-date">星期一 3:47pm</div>
+							</div>
+							<div class="card-content">
+								<img src="./images/test1.jpg" width="100%">
+							</div>
+						</div>
+						<div class="card facebook-card" style="background-color:lightgreen;">
+							<div class="card-header">
+								<div class="facebook-avatar">
+									<img src="./images/head02.jpg" width="34" height="34">
+								</div>
+								<div class="facebook-name">詹姆斯</div>
+								<div class="facebook-date">星期一 3:47pm</div>
+							</div>
+							<div class="card-content">
+								<div class="card-content-inner">我说话了</div>
+							</div>
+						</div>
+						<div class="card facebook-card" style="background-color:lightgreen;">
+							<div class="card-header">
+								<div class="facebook-avatar">
+									<img src="./images/head02.jpg" width="34" height="34">
+								</div>
+								<div class="facebook-name">詹姆斯</div>
+								<div class="facebook-date">星期一 3:47pm</div>
+							</div>
+							<div class="card-content">
+								<div class="card-content-inner">我说话了</div>
+							</div>
+						</div>
+						<div class="card facebook-card" style="background-color:lightgreen;">
+							<div class="card-header">
+								<div class="facebook-avatar">
+									<img src="./images/head02.jpg" width="34" height="34">
+								</div>
+								<div class="facebook-name">詹姆斯</div>
+								<div class="facebook-date">星期一 3:47pm</div>
+							</div>
+							<div class="card-content">
+								<div class="card-content-inner">我说话了</div>
+							</div>
+						</div>
+					</div>
+					<div id="content-edit">
+						<div class="content-block-title">编辑内容</div>
+						<div class="weui-cells">
+							<div class="weui-cell">
+								<div class="weui-cell__bd">
+									<input id="msg-content" class="weui-input" type="text" placeholder="请输入文本">
+								</div>
+								<div class="weui-cell__ft weui-uploader__input-box" style="width:45;height:45">
+									<input id="picture-upload" class="weui-uploader__input" type="file" accept="image/*" style="width:30;height:30" />
+								</div>
+							</div>
+						</div>
+						<a href="javascript:sendMsg();" class="weui-btn weui-btn_primary" style="margin:10 10 0 10">发送消息</a>
+					</div>
+				</div>
+
+				
+				<div id="friend-tab" class="tab">
+					<div id="friend-list" class="content-block">
+						<!-- <div class="card facebook-card" style="background-color:lightgreen;">
+							<div class="card-header">
+								<div class="facebook-avatar">
+									<img src="./images/head02.jpg" width="34" height="34">
+								</div>
+								<div class="facebook-name">詹姆斯</div>
+								<div class="facebook-date">星期一 3:47pm</div>
+							</div>
+						</div> -->
+					</div>
+				</div>
+
+			</div>
+			
+			
+			<div id="add-friend-dialog" style="display: none;width:80%;">
+	            <div class="weui-mask"></div>
+	            <div class="weui-dialog">
+	                <div class="weui-dialog__hd"><strong class="weui-dialog__title">添加好友</strong></div>
+	                <div class="weui-dialog__bd">
+	
+						<div class="weui-cells weui-cells_form">
+							<input id="add-friend-uuid" class="weui-input need-check" type="hidden">
+							<div class="weui-cell">
+								<div class="weui-cell__hd">
+									<label class="weui-label">账号</label>
+								</div>
+								<div class="weui-cell__bd">
+									<input id="add-friend-account" class="weui-input need-check" type="text" disabled>
+								</div>
+							</div>
+							<div class="weui-cell">
+								<div class="weui-cell__hd">
+									<label class="weui-label">用户名</label>
+								</div>
+								<div class="weui-cell__bd">
+									<input id="add-friend-username" class="weui-input need-check" type="text" disabled>
+								</div>
+							</div>
+							<div class="weui-cell">
+								<div class="weui-cell__hd">
+									<label class="weui-label">昵称</label>
+								</div>
+								<div class="weui-cell__bd">
+									<input id="add-friend-nick" class="weui-input need-check" type="text">
+								</div>
+							</div>
+						</div>
+						
+	                </div>
+	                <div class="weui-dialog__ft">
+	                    <a href="javascript:$('#add-friend-dialog').fadeOut(200);" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+	                    <a href="javascript:addFriend();" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+	                </div>
+	            </div>
+	        </div>
+	        
+	        <!-- 编辑群聊名称 -->
+	        <div id="edit-chat-name-dialog" style="display: none;width:80%;">
+	            <div class="weui-mask"></div>
+	            <div class="weui-dialog">
+	                <div class="weui-dialog__hd"><strong class="weui-dialog__title">修改群聊名称</strong></div>
+	                <div class="weui-dialog__bd">
+						<div class="weui-cells weui-cells_form">
+							<div class="weui-cell">
+								<div class="weui-cell__bd">
+									<input id="edit-chat-name" class="weui-input need-check" type="text">
+								</div>
+							</div>
+						</div>
+	                </div>
+	                <div class="weui-dialog__ft">
+	                    <a href="javascript:$('#edit-chat-name-dialog').fadeOut(200);" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+	                    <a href="javascript:editChatName();" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+	                </div>
+	            </div>
+	        </div>
+	        
+	        <!-- 编辑用户群聊昵称 -->
+	        <div id="edit-user-nick-dialog" style="display: none;width:80%;">
+	            <div class="weui-mask"></div>
+	            <div class="weui-dialog">
+	                <div class="weui-dialog__hd"><strong class="weui-dialog__title">修改群聊昵称</strong></div>
+	                <div class="weui-dialog__bd">
+						<div class="weui-cells weui-cells_form">
+							<div class="weui-cell">
+								<div class="weui-cell__bd">
+									<input id="edit-user-nick" class="weui-input need-check" type="text">
+								</div>
+							</div>
+						</div>
+	                </div>
+	                <div class="weui-dialog__ft">
+	                    <a href="javascript:$('#edit-user-nick-dialog').fadeOut(200);" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+	                    <a href="javascript:editUserNick();" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+	                </div>
+	            </div>
+	        </div>
+			
+			
+		</div>
+
+
+			
+		<!-- 添加好友的弹窗 -->
+		<div class="popup popup-friend">
+		
+			<div id="search-bar" class="weui-search-bar" style="height:44px;">
+				<form class="weui-search-bar__form">
+					<div class="weui-search-bar__box">
+						<i class="weui-icon-search"></i>
+						<input id="search-input" type="search" class="weui-search-bar__input" placeholder="输入关键字以搜索好友">
+						<a id="search-clear" href="javascript:" class="weui-icon-clear"></a>
+					</div>
+					<label id="search-text" class="weui-search-bar__label" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+						<i class="weui-icon-search"></i>
+						<span>输入关键字搜索好友</span>
+					</label>
+				</form>
+				<a id="search-cancel" href="javascript:" class="weui-search-bar__cancel-btn">搜索</a>
+			</div>
+			
+			<div id="filter-users">
+				<!-- <div class="card facebook-card close-popup" onclick="$('#add-friend-dialog').fadeIn(200);">
+					<div class="card-header">
+						<div class="facebook-avatar">
+							<img src="./images/head01.jpg" width="34" height="34">
+						</div>
+						<div class="facebook-name">夜萧</div>
+						<div class="facebook-date">james</div>
+					</div>
+				</div> -->
+			</div>
+			
+			<a href="javascript:;" class="weui-btn weui-btn_primary close-popup" style="margin-left:10;margin-right:10;">返回</a>
+			
+		</div>
+		
+		<!-- 修改聊天信息的弹窗 -->
+		<div class="popup popup-chat">
+		
+			<div class="weui-cells weui-cells_form">
+	            <div class="weui-cell">
+	                <div class="weui-cell__bd">
+	                    <div class="weui-uploader">
+	                        <div class="weui-uploader__bd">
+	                            <ul id="popup-chat-users" class="weui-uploader__files">
+	                            	<li class="weui-uploader__file" style="background-image:url(./images/head01.jpg)"></li>
+	                            	<li class="weui-uploader__file" style="background-image:url(./images/head02.jpg)"></li>
+	                            	<li class="weui-uploader__file" style="background-image:url(./images/test1.jpg)"></li>
+	                            	<li class="weui-uploader__file" style="background-image:url(./images/test2.jpg)"></li>
+	                            	<li class="weui-uploader__file" style="background-image:url(./images/test3.jpg)"></li>
+	                            	<li class="weui-uploader__file" style="background-image:url(./images/test4.jpg)"></li>
+	                            </ul>
+	                            <div id="add-chat-user" class="weui-uploader__input-box open-popup" data-popup=".popup-chat-user">
+	                                <!-- <input id="picture-upload" class="weui-uploader__input" type="file" accept="image/*" multiple /> -->
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        
+	        <div class="list-block">
+				<ul>
+					<li class="item-content">
+						<div class="item-inner">
+							<div class="item-title">群聊名称</div>
+							<div id="popup-chat-name" class="item-after close-popup"></div>
+						</div>
+					</li>
+					<li class="item-content">
+						<div class="item-inner">
+							<div class="item-title">群聊昵称</div>
+							<div id="popup-chat-userNick" class="item-after close-popup"></div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content">
+							<div class="item-inner">
+								<div class="item-title label">消息提醒</div>
+								<div class="item-input">
+									<label class="label-switch">
+										<input id="popup-chat-disturb" type="checkbox">
+										<div class="checkbox"></div>
+									</label>
+								</div>
+							</div>
+						</div>
+					</li>
+					
+				</ul>
+			</div>
+	        
+	        <a href="javascript:;" class="weui-btn weui-btn_warn" style="margin-left:10;margin-right:10;">退出聊天</a>
+	        <a href="javascript:;" class="weui-btn weui-btn_primary close-popup" style="margin-left:10;margin-right:10;">返回</a>
+			
+		</div>
+		
+		<!-- 添加聊天成员的弹窗 -->
+		<div class="popup popup-chat-user">
+		
+			<div id="chat-filter-users">
+				<div class="card facebook-card">
+					<div class="card-header">
+						<div class="facebook-avatar">
+							<img src="./images/head01.jpg" width="34" height="34">
+						</div>
+						<div class="facebook-name">夜萧</div>
+						<div class="facebook-date">james</div>
+					</div>
+				</div>
+				<div class="card facebook-card">
+					<div class="card-header">
+						<div class="facebook-avatar">
+							<img src="./images/head01.jpg" width="34" height="34">
+						</div>
+						<div class="facebook-name">夜萧</div>
+						<div class="facebook-date">james</div>
+					</div>
+				</div>
+				<div class="card facebook-card">
+					<div class="card-header">
+						<div class="facebook-avatar">
+							<img src="./images/head01.jpg" width="34" height="34">
+						</div>
+						<div class="facebook-name">夜萧</div>
+						<div class="facebook-date">james</div>
+					</div>
+				</div>
+				<div class="card facebook-card">
+					<div class="card-header">
+						<div class="facebook-avatar">
+							<img src="./images/head01.jpg" width="34" height="34">
+						</div>
+						<div class="facebook-name">夜萧</div>
+						<div class="facebook-date">james</div>
+					</div>
+				</div>
+			</div>
+			
+			<a href="javascript:addChatUsers();" class="weui-btn weui-btn_primary close-popup" style="margin-left:10;margin-right:10;">添加</a>
+			<a href="javascript:;" class="weui-btn weui-btn_primary close-popup" style="margin-left:10;margin-right:10;">返回</a>
+			
+		</div>
+		
+		
+	</div>
+	
+
+</body>
+</html>

@@ -1,0 +1,245 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>I悦租</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//res.wx.qq.com/open/libs/weui/1.0.2/weui.min.css">
+<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<link rel="stylesheet" href="./css/global.css">
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="//g.alicdn.com/sj/lib/zepto/zepto.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js" charset="utf-8"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./js/jquery.cookie.js"></script>
+<!-- <script type="text/javascript" src="./js/echarts.min.js"></script> -->
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/house_detail.js"></script>
+
+</head>
+
+<body>
+
+	<div class="page">
+
+		<header class="bar bar-nav">
+			<button id="edit-house" class="button pull-right" onclick="editHouse();">编辑</button>
+			<h1 class="title">房源详情</h1>
+		</header>
+	
+		<nav id="page-nav" class="bar bar-tab">
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+		</nav>
+	
+		<div class="content">
+	
+			<!-- 图片轮播 -->
+			<div id="picture-carousel" class="carousel slide" data-ride="carousel" style="height:50%;width:100%">
+				<ol class="carousel-indicators">
+				</ol>
+
+				<div class="carousel-inner" role="listbox" style="height:100%;width:100%">
+				</div>
+
+			</div>
+
+			<div id="reservation-count" class="content-block-title">已有<span style="color:red">0</span>位租客预约过该房源</div>
+	
+			<!-- 房源信息 -->
+			<div class="content-block-title">房源信息</div>
+			<div class="list-block">
+				<ul>
+					<li class="item-content">
+						<div class="item-inner">
+							<div class="item-title">标题</div>
+							<div id="title" class="item-after"></div>
+						</div>
+					</li>
+					<li class="item-content">
+						<div class="item-inner">
+							<div class="item-title">地址</div>
+							<div id="district" class="item-after"></div>
+						</div>
+					</li>
+					<li class="item-content">
+						<div class="item-inner">
+							<div class="item-title">小区</div>
+							<div id="community" class="item-after"></div>
+						</div>
+					</li>
+					<li class="item-content">
+						<div class="item-inner">
+							<div class="item-title">租金</div>
+							<div id="price" class="item-after"></div>
+						</div>
+					</li>
+					<li class="item-content">
+						<div class="item-inner">
+							<div class="item-title">面积</div>
+							<div id="size" class="item-after"></div>
+						</div>
+					</li>
+					<li class="item-content">
+						<div class="item-inner">
+							<div class="item-title">厅室</div>
+							<div id="rooms" class="item-after"></div>
+						</div>
+					</li>
+					<li class="item-content">
+						<div class="item-inner">
+							<div class="item-title">出租方式</div>
+							<div id="type" class="item-after"></div>
+						</div>
+					</li>
+					<li class="item-content">
+						<div class="item-inner">
+							<div class="item-title">发布时间</div>
+							<div id="create-time" class="item-after"></div>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div id="contact" class="content-block-title">联系人信息</div>
+			<div id="contact-info" class="list-block">
+				<ul>
+					<li class="item-content">
+						<div class="item-inner">
+							<div class="item-title">姓名</div>
+							<div id="contact-name" class="item-after"></div>
+						</div>
+					</li>
+					<li class="item-content">
+						<div class="item-inner">
+							<div class="item-title">手机号</div>
+							<div id="contact-phone" class="item-after"></div>
+						</div>
+					</li>
+					<li class="item-content">
+						<div class="item-inner">
+							<div class="item-title">微信号</div>
+							<div id="contact-wechat" class="item-after"></div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="content-block-title">详细说明</div>
+			<div class="card">
+				<div class="card-content">
+					<div id="detail" class="card-content-inner" style="text-indent:36px;"></div>
+				</div>
+			</div>
+			
+			<!-- 房源预约 -->
+			<div id="reservation-btn" class="content-block">
+				<a href="javascript:showReservationDialog();" class="button button-success button-fill button-big">我要看房</a>
+			</div>
+			
+			<div class="content-block-title">评论(<span id="comment-count">25</span>)</div>
+
+			<div class="content-padded">
+				<div class="searchbar">
+					<div class="search-input">
+						<label class="icon icon-edit" for="publish-comment"></label>
+							<input type="search" id="publish-comment" placeholder="发表评论"  style="ime-mode:disabled;" />
+					</div>
+				</div>
+			</div>
+			
+			<div id="comment-list">
+			</div>
+			
+			<div class="content-padded" style="background-color:white">
+				<p><a href="javascript:goToHouseComments();" class="button button-light button-big" style="border:0">查看全部评论<span class="icon icon-down"></span></a></p>
+			</div>
+			
+			<div class="weui-gallery" id="gallery">
+	            <span class="weui-gallery__img" id="gallery-image"></span>
+	        </div>
+			
+			<div id="comment-dialog" style="display: none;width:80%;">
+	            <div class="weui-mask"></div>
+	            <div class="weui-dialog">
+	                <div class="weui-dialog__hd"><strong class="weui-dialog__title">发表评论</strong></div>
+	                <div class="weui-dialog__bd">
+	
+						<div class="weui-cells weui-cells_form">
+							<div class="weui-cell">
+								<div class="weui-cell__bd">
+									<textarea id="comment-content" class="weui-textarea" placeholder="请输入内容..." rows="5"></textarea>
+									<div class="weui-textarea-counter">
+										<span id="detail-count">0</span>/300
+									</div>
+								</div>
+							</div>
+						</div>
+	                </div>
+	                <div class="weui-dialog__ft">
+	                    <a href="javascript:hideCommentDialog();" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+	                    <a id="submit-comment" href="javascript:void(0);" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+	                </div>
+	            </div>
+	        </div>
+			
+			<div id="reservation-dialog" style="display: none;width:80%;">
+	            <div class="weui-mask"></div>
+	            <div class="weui-dialog">
+	                <div class="weui-dialog__hd"><strong class="weui-dialog__title">确认预约信息</strong></div>
+	                <div class="weui-dialog__bd">
+	
+						<div id="phone-module" class="weui-cells weui-cells_form" style="display: none;">
+							<div class="weui-cell">
+								<div class="weui-cell__hd">
+									<label class="weui-label">手机号</label>
+								</div>
+								<div class="weui-cell__bd">
+									<input id="reservation-contact-phone" class="weui-input" type="tel" placeholder="请输入手机号">
+								</div>
+							</div>
+						</div>
+						
+						<div class="weui-cells weui-cells_form">
+							<div class="weui-cell">
+								<div class="weui-cell__bd">
+									<textarea id="reservation-content" class="weui-textarea" placeholder="请输入备注信息..." rows="5"></textarea>
+									<div class="weui-textarea-counter">
+										<span id="reservation-detail-count">0</span>/300
+									</div>
+								</div>
+							</div>
+						</div>
+	                </div>
+	                <div class="weui-dialog__ft">
+	                    <a href="javascript:hideReservationDialog();" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+	                    <a id="submit-reservation" href="javascript:void(0);" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+	                </div>
+	            </div>
+	        </div>
+			
+		</div>
+		
+	</div>
+</body>
+</html>

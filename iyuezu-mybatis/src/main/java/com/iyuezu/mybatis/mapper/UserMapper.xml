@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iyuezu.mybatis.mapper.UserMapper">
+    
+	<resultMap id="userResult" type="User">
+    	<result property="uuid" column="uuid" />
+    	<result property="account" column="account" />
+		<result property="username" column="username" />
+		<result property="token" column="token" />
+		<result property="name" column="name" />
+		<result property="phone" column="phone" />
+		<result property="email" column="email" />
+		<result property="identity" column="identity" />
+		<result property="head" column="head" />
+		<result property="type" column="type" />
+		<result property="status" column="status" />
+		<result property="createTime" column="create_time" />
+		<result property="activeTime" column="active_time" />
+	</resultMap>
+	
+	<resultMap id="userDtoResult" type="UserDto">
+    	<result property="uuid" column="u_uuid" />
+    	<result property="account" column="u_account" />
+		<result property="username" column="u_username" />
+		<result property="token" column="u_token" />
+		<result property="name" column="u_name" />
+		<result property="phone" column="u_phone" />
+		<result property="email" column="u_email" />
+		<result property="identity" column="u_identity" />
+		<result property="head" column="u_head" />
+		<result property="type" column="u_type" />
+		<result property="status" column="u_status" />
+		<result property="createTime" column="u_create_time" />
+		<result property="activeTime" column="u_active_time" />
+		<collection property="houses" ofType="House" javaType="ArrayList" resultMap="houseResult"/>
+		<collection property="orders" ofType="Order" javaType="ArrayList" resultMap="orderResult"/>
+	</resultMap>
+	
+	<resultMap id="houseResult" type="House">
+    	<result property="uuid" column="h_uuid" />
+    	<result property="title" column="h_title" />
+    	<result property="community" column="h_community" />
+		<result property="room" column="h_room" />
+		<result property="hall" column="h_hall" />
+		<result property="defend" column="h_defend" />
+		<result property="size" column="h_size" />
+		<result property="price" column="h_price" />
+		<result property="discount" column="h_discount" />
+		<result property="contactName" column="h_contact_name" />
+		<result property="contactPhone" column="h_contact_phone" />
+		<result property="reservationCount" column="h_reservation_count" />
+		<result property="type" column="h_type" />
+		<result property="floor" column="h_floor" />
+		<result property="totalFloor" column="h_total_floor" />
+		<result property="furnitures" column="h_furnitures" />
+		<result property="description" column="h_description" />
+		<result property="detail" column="h_detail" />
+		<result property="pictures" column="h_pictures" />
+		<result property="status" column="h_status" />
+		<result property="freeTime" column="h_free_time" />
+		<result property="createTime" column="h_create_time" />
+		<result property="updateTime" column="h_update_time" />
+		<association property="district" javaType="District" resultMap="houseDistrictResult" />
+	</resultMap>
+	
+	<resultMap id="houseDistrictResult" type="District">
+		<result property="id" column="hd_id" />
+		<result property="code" column="hd_code" />
+		<result property="name" column="hd_name" />
+		<result property="parent" column="hd_parent" />
+		<result property="level" column="hd_level" />
+		<result property="status" column="hd_status" />
+	</resultMap>
+	
+	<resultMap id="orderResult" type="Order">
+    	<result property="uuid" column="o_uuid" />
+    	<result property="code" column="o_code" />
+    	<result property="discount" column="o_discount" />
+		<result property="benefit" column="o_benefit" />
+		<result property="amount" column="o_amount" />
+		<result property="status" column="o_status" />
+		<result property="beginTime" column="o_begin_time" />
+		<result property="endTime" column="o_end_time" />
+		<result property="createTime" column="o_create_time" />
+		<result property="updateTime" column="o_update_time" />
+		<association property="target" javaType="Target" resultMap="targetResult" />
+	</resultMap>
+	
+	<resultMap id="targetResult" type="Target">
+		<result property="uuid" column="t_uuid" />
+		<result property="title" column="t_title" />
+		<result property="community" column="t_community" />
+		<result property="room" column="t_room" />
+		<result property="hall" column="t_hall" />
+		<result property="defend" column="t_defend" />
+		<result property="size" column="t_size" />
+		<result property="price" column="t_price" />
+		<result property="discount" column="t_discount" />
+		<result property="contactName" column="t_contact_name" />
+		<result property="contactPhone" column="t_contact_phone" />
+		<result property="reservationCount" column="t_reservation_count" />
+		<result property="type" column="t_type" />
+		<result property="floor" column="t_floor" />
+		<result property="totalFloor" column="t_total_floor" />
+		<result property="furnitures" column="t_furnitures" />
+		<result property="description" column="t_description" />
+		<result property="detail" column="t_detail" />
+		<result property="pictures" column="t_pictures" />
+		<result property="status" column="t_status" />
+		<result property="createTime" column="t_create_time" />
+		<association property="district" javaType="District" resultMap="targetDistrictResult" />
+	</resultMap>
+	
+	<resultMap id="targetDistrictResult" type="District">
+		<result property="id" column="td_id" />
+		<result property="code" column="td_code" />
+		<result property="name" column="td_name" />
+		<result property="parent" column="td_parent" />
+		<result property="level" column="td_level" />
+		<result property="status" column="td_status" />
+	</resultMap>
+	
+	<resultMap id="userMemberResult" type="UserMember">
+    	<result property="uuid" column="uuid" />
+		<result property="username" column="username" />
+		<result property="userNick" column="user_nick" />
+		<result property="name" column="name" />
+		<result property="phone" column="phone" />
+		<result property="email" column="email" />
+		<result property="head" column="head" />
+		<result property="type" column="type" />
+		<result property="createTime" column="create_time" />
+	</resultMap>
+	
+	<select id="selectUsers" resultMap="userResult">
+		select u.* from users as u
+		<if test="parentUuid != null">
+			join userrolerelation as urr on u.uuid = urr.user_uuid join roles as r on urr.role_uuid = r.uuid and r.parent in
+				(select role_uuid from userrolerelation where user_uuid = #{parentUuid})
+		</if>
+		<where>
+			<if test="type != null">and u.type = #{type}</if>
+			<if test="status != null">and u.status = #{status}</if>
+		</where>
+		
+		<!-- 使用mybatis的分页插件PageHelper
+		<if test="offset != null and size != null and offset > 0 and size > 0">
+			order by u.uuid limit #{offset}, #{size}
+		</if> -->
+	</select>
+	
+	<select id="selectUserDtoByUuid" resultMap="userDtoResult">
+		select
+			u.uuid as u_uuid, u.account as u_account, u.username as u_username, u.token as u_token, u.name as u_name,
+			u.phone as u_phone, u.email as u_email, u.identity as u_identity, u.head as u_head, u.type as u_type,
+			u.status as u_status, u.create_time as u_create_time, u.active_time as u_active_time,
+			h.uuid as h_uuid, h.title as h_title, h.community as h_community, h.room as h_room, h.hall as h_hall,
+			h.defend as h_defend, h.size as h_size, h.price as h_price, h.discount as h_discount, h.contact_name as h_contact_name,
+			h.contact_phone as h_contact_phone, h.reservation_count as h_reservation_count, h.type as h_type, h.floor as h_floor,
+			h.total_floor as h_total_floor, h.furnitures as h_furnitures, h.description as h_description, h.detail as h_detail,
+			h.pictures as h_pictures, h.status as h_status, h.free_time as h_free_time, h.create_time as h_create_time,
+			h.update_time as h_update_time,
+			hd.id as hd_id, hd.code as hd_code, hd.name as hd_name, hd.parent as hd_parent, hd.level as hd_level, hd.status as hd_status,
+			o.uuid as o_uuid, o.code as o_code, o.discount as o_discount, o.benefit as o_benefit, o.amount as o_amount,
+			o.status as o_status, o.begin_time as o_begin_time, o.end_time as o_end_time, o.create_time as o_create_time,
+			o.update_time as o_update_time,
+			t.uuid as t_uuid, t.title as t_title, t.community as t_community, t.room as t_room, t.hall as t_hall,
+			t.defend as t_defend, t.size as t_size, t.price as t_price, t.discount as t_discount, t.contact_name as t_contact_name,
+			t.contact_phone as t_contact_phone, t.reservation_count as t_reservation_count, t.type as t_type, t.floor as t_floor,
+			t.total_floor as t_total_floor, t.furnitures as t_furnitures, t.desciption as t_description, t.detail as t_detail,
+			t.pictures as t_pictures, t.status as t_status, t.create_time as t_create_time,
+			td.id as td_id, td.code as td_code, td.name as td_name, td.parent as td_parent, td.level as td_level, td.status as td_status
+		from users as u left join houses as h on u.uuid = h.user_uuid left join districts as hd on h.district_id = hd.id
+			left join orders as o on u.uuid = o.user_uuid left join targets as t on o.target_uuid = t.uuid left join districts as td on t.district_id = td.id
+		where u.uuid = #{uuid}
+	</select>
+	
+	<insert id="insertUser" parameterType="User">
+		insert into users (
+			uuid, account, username, password, token, name, phone, email, identity, head, type, status, create_time, active_time
+		) values (
+			#{uuid, jdbcType=VARCHAR}, #{account, jdbcType=VARCHAR}, #{username, jdbcType=VARCHAR}, #{password, jdbcType=VARCHAR},
+			#{token, jdbcType=VARCHAR}, #{name, jdbcType=VARCHAR}, #{phone, jdbcType=VARCHAR}, #{email, jdbcType=VARCHAR},
+			#{identity, jdbcType=VARCHAR}, #{head, jdbcType=VARCHAR}, #{type, jdbcType=TINYINT}, #{status, jdbcType=TINYINT},
+			#{createTime, jdbcType=BIGINT}, #{activeTime, jdbcType=BIGINT}
+		)
+	</insert>
+	
+	<update id="updateUser" parameterType="User">
+		update users
+		<trim prefix="set" prefixOverrides=",">
+			<if test="username != null">, username = #{username}</if>
+			<if test="password != null">, password = #{password}</if>
+			<if test="token != null">, token = #{token}</if>
+			<if test="name != null">, name = #{name}</if>
+			<if test="phone != null">, phone = #{phone}</if>
+			<if test="email != null">, email = #{email}</if>
+			<if test="identity != null">, identity = #{identity}</if>
+			<if test="head != null">, head = #{head}</if>
+			<if test="type != null">, type = #{type}</if>
+			<if test="status != null">, status = #{status}</if>
+			<if test="createTime != null">, create_time = #{createTime}</if>
+			<if test="activeTime != null">, active_time = #{activeTime}</if>
+		</trim>
+		where uuid = #{uuid}
+	</update>
+	
+	<insert id="insertUserRelation" parameterType="UserRelation">
+		insert into t_user_relation (
+			user_uuid, friend_uuid, friend_nick, status, create_time, update_time
+		) values (
+			#{userUuid, jdbcType=VARCHAR}, #{friendUuid, jdbcType=VARCHAR}, #{friendNick, jdbcType=VARCHAR}, #{status, jdbcType=TINYINT},
+			#{createTime, jdbcType=BIGINT}, #{updateTime, jdbcType=BIGINT}
+		)
+	</insert>
+	
+	<update id="updateUserRelation" parameterType="UserRelation">
+		update t_user_relation
+		<trim prefix="set" prefixOverrides=",">
+			<if test="friendNick != null">, friend_nick = #{friendNick}</if>
+			<if test="status != null">, status = #{status}</if>
+			<if test="updateTime != null">, update_time = #{updateTime}</if>
+		</trim>
+		where id = #{id}
+	</update>
+	
+	<select id="selectUserRelationId" resultType="java.lang.Integer">
+		select id from t_user_relation where user_uuid = #{userUuid} and friend_uuid = #{friendUuid}
+	</select>
+	
+	<select id="selectFriends" resultMap="userMemberResult">
+		select
+			u.uuid as uuid, u.username as username, r.friend_nick as user_nick, u.name as name,
+			u.phone as phone, u.email as email, u.head as head, u.type as type,
+			r.create_time as create_time
+		from users as u join t_user_relation as r on u.uuid = r.friend_uuid
+		where r.user_uuid = #{userUuid} and r.status = 1
+	</select>
+	
+	<select id="selectUsersByKeyword" resultMap="userResult">
+		select
+			uuid, account, username, name, phone, email, head, type, status
+		from users
+		where account like #{keyword} or username like #{keyword}
+	</select>
+
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.iyuezu.mybatis.mapper.FurnitureMapper">
+
+	<insert id="insertFurniture" parameterType="Furniture">
+		insert into furnitures (
+			code, name, icon, status
+		) values (
+			#{code, jdbcType=VARCHAR}, #{name, jdbcType=VARCHAR}, #{icon, jdbcType=INTEGER}, #{status, jdbcType=TINYINT}
+		)
+	</insert>
+	
+	<update id="updateFurniture" parameterType="Furniture">
+		update furnitures
+		<trim prefix="set" prefixOverrides=",">
+			<if test="code != null">, code = #{code}</if>
+			<if test="name != null">, name = #{name}</if>
+			<if test="icon != null">, icon = #{icon}</if>
+			<if test="status != null">, status = #{status}</if>
+		</trim>
+		where id = #{id}
+	</update>
+	
+	<select id="selectFurnitures" resultType="Furniture" parameterType="Furniture">
+		select id, code, name, icon, status from furnitures
+		<where>
+			<if test="id != null">and id = #{id}</if>
+			<if test="code != null">and code = #{code}</if>
+			<if test="name != null">and name = #{name}</if>
+			<if test="status != null">and status = #{status}</if>
+		</where>
+	</select>
+	
+</mapper>

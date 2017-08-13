@@ -1,0 +1,96 @@
+<html lang="en" class="pixel-ratio-1">
+<head>
+<meta charset="UTF-8">
+<title>I悦租</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<link rel="stylesheet" href="./css/global.css">
+<script type="text/javascript" src="//g.alicdn.com/sj/lib/zepto/zepto.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="./js/jquery.cookie.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script type="text/javascript" src="./js/selector.js"></script>
+<script type="text/javascript" src="./js/house_list.js"></script>
+
+</head>
+
+<body>
+
+	<div class="page">
+	
+		<header class="bar bar-nav">
+			<button id="create-house" class="button pull-right" onclick="createHouse();">创建</button>
+			<h1 id="page-title" class="title">我的房源</h1>
+		</header>
+
+		<nav id="page-nav" class="bar bar-tab">
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+			<a class="tab-item">
+				<span class="icon"></span>
+				<span class="tab-label page-title"></span>
+			</a>
+		</nav>
+
+		<div class="content">
+			<div id="h-tab" class="buttons-tab fixed-tab">
+				<a id="h-district" class="tab-link button open-popup" district-id="">地区<span class="arrow-down"></span></a>
+				<a id="h-price" class="tab-link button open-popup" price="">价格<span class="arrow-down"></span></a>
+				<a id="h-type" class="tab-link button open-popup" type="">类型<span class="arrow-down"></span></a>
+				<a id="h-order" class="tab-link button open-popup" rooms="">排序<span class="arrow-down"></span></a>
+			</div>
+			
+			<div id="house-list"></div>
+			
+			<div id="page-controller" class="card">
+ 				<div class="card-footer">
+					<a id="pre-page" href="" class="link useless">上一页</a>
+					<a id="page-index" style="color:black">第1页</a>
+					<a id="next-page" href="" class="link useless">下一页</a>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="popup popup-selector">
+			<div id="p-tab" class="buttons-tab fixed-tab">
+				<a id="p-district" class="tab-link active button"></a>
+				<a id="p-price" class="tab-link button"></a>
+				<a id="p-type" class="tab-link button"></a>
+				<a id="p-order" class="tab-link button"></a>
+			</div>
+			<div class="row">
+				<div class="col-50">
+					<div class="list-block">
+						<ul id="p-first-list">
+						</ul>
+					</div>
+				</div>
+				<div class="col-50">
+					<div class="list-block">
+						<ul id="p-second-list">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+</html>
